@@ -1,0 +1,25 @@
+.jello-navigation {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.jello-navigation a {
+  text-decoration: none;
+  color: white;
+  font-size: 1rem;
+  opacity: 0.7;
+  margin-right: 5px;
+}
+
+.jello-navigation a:hover {
+  opacity: 1;
+}
+
+.sign-up {
+  border: 1px;
+  border-radius: 5px;
+  background-color: cornflowerblue;
+  padding: 5px;
+}
