@@ -1,6 +1,6 @@
-import Register from "../components/pages/Register";
-import Login from "../components/pages/Login";
-import Landing from "../components/pages/Landing";
+import Register from "../pages/Register";
+import Login from "../pages/Login";
+import Landing from "../pages/Landing";
 
 const routes = [
   {
