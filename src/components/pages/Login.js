@@ -4,11 +4,27 @@ import {
   Grid,
   TextField,
   Typography,
+  Container
 } from "@material-ui/core";
-import React from "react";
+import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 
 const Login = () => {
+
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+  });
+  const { email, password } = formData;
+
+  const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    console.log(email,password);
+    // dispatch(login(email, password));
+  };
+
   return (
     <div className="container">
       <CssBaseline />
@@ -19,16 +35,18 @@ const Login = () => {
         <Typography component="h1" variant="h5">
           Login
         </Typography>
-        <form className="form">
+        <form className="form" onSubmit={(e) => onSubmit(e)}>
           <TextField
-            autoComplete="email"
-            name="name"
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            label="Email Address"
-            autoFocus
+             variant='outlined'
+             margin='normal'
+             required
+             fullWidth
+             label='Email Address'
+             name='email'
+             autoComplete='email'
+             autoFocus
+             value={email}
+             onChange={(e) => onChange(e)}
           />
           <TextField
             autoComplete="current-password"
@@ -40,6 +58,8 @@ const Login = () => {
             fullWidth
             label="Password"
             autoFocus
+            value={password}
+            onChange={(e) => onChange(e)}
           />
           <Button
             type="submit"

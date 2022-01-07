@@ -1,9 +1,50 @@
-import React from "react";
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+// import { setAlert } from '../../actions/alert';
 import Button from "@material-ui/core/Button";
 import { CssBaseline, Grid, TextField, Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
 
 const Register = () => {
+
+  const loginwithGoogle = ()=>{
+    firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider())   
+    .then((userCred)=>{
+        console.log(userCred);
+    })
+  }
+
+  // const loginwithEmail = ()=>{
+  //   firebase.auth().createUserWithEmailAndPassword(email,password)
+  // }
+
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    password: '',
+    password2: '',
+  });
+
+  const { name, email, password, password2 } = formData;
+
+  const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+
+  // const dispatch = useDispatch();
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    if (password !== password2) {
+      // dispatch(setAlert('Passwords do not match', 'error'));
+      console.log('passwords dont match');
+    } else {
+      // dispatch(register({ name, email, password }));
+      console.log('hi',name,email,password);
+    }
+  };
+
   return (
     <div className="container">
       <CssBaseline />
@@ -14,7 +55,7 @@ const Register = () => {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form className="form">
+        <form className="form" onSubmit={(e) => onSubmit(e)}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
@@ -25,6 +66,8 @@ const Register = () => {
                 fullWidth
                 label="Your Name"
                 autoFocus
+                value={name}
+                onChange={(e) => onChange(e)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -37,6 +80,8 @@ const Register = () => {
                 fullWidth
                 label="Email Address"
                 autoFocus
+                value={email}
+                onChange={(e) => onChange(e)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -48,6 +93,8 @@ const Register = () => {
                 label="Password"
                 type="password"
                 autoFocus
+                value={password}
+                onChange={(e) => onChange(e)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -59,6 +106,8 @@ const Register = () => {
                 fullWidth
                 label="Confirm Password"
                 autoFocus
+                value={password2}
+                onChange={(e) => onChange(e)}
               />
             </Grid>
           </Grid>
@@ -79,6 +128,7 @@ const Register = () => {
             </Grid>
           </Grid>
         </form>
+        <button onClick={loginwithGoogle}>Login with google</button>
       </div>
     </div>
   );
