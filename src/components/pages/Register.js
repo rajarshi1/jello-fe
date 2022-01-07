@@ -5,6 +5,7 @@ import Button from "@material-ui/core/Button";
 import { CssBaseline, Grid, TextField, Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import firebase from 'firebase/compat/app';
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 
@@ -13,7 +14,8 @@ const Register = () => {
   const loginwithGoogle = ()=>{
     firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider())   
     .then((userCred)=>{
-        console.log(userCred);
+        console.log('hi',userCred);
+
     })
   }
 
@@ -29,6 +31,35 @@ const Register = () => {
   });
 
   const { name, email, password, password2 } = formData;
+
+  const loginwithEmail = ()=>{
+    console.log('test-1',email,password);
+    firebase.auth().createUserWithEmailAndPassword(email,password)
+    .then((userCred)=>{
+      console.log(userCred);
+    })
+    .catch((error) => {
+      console.log(error.code,error.message);
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // ..
+    });
+  }
+
+//   const loginwithEmail = ()=>{
+//     const auth = getAuth();
+// createUserWithEmailAndPassword(auth, email, password)
+//   .then((userCredential) => {
+//     // Signed in 
+//     const user = userCredential.user;
+//     // ...
+//   })
+//   .catch((error) => {
+//     const errorCode = error.code;
+//     const errorMessage = error.message;
+//     // ..
+//   });
+//   }
 
   const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
@@ -55,7 +86,8 @@ const Register = () => {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form className="form" onSubmit={(e) => onSubmit(e)}>
+        {/* <form className="form" onSubmit={(e) => onSubmit(e)}> */}
+        <form className="form" onSubmit={loginwithEmail}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
