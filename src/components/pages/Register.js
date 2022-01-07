@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 // import { setAlert } from '../../actions/alert';
+import axios from 'axios';
 import Button from "@material-ui/core/Button";
 import { CssBaseline, Grid, TextField, Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
@@ -8,14 +9,35 @@ import firebase from 'firebase/compat/app';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
+const auth = getAuth();
 
 const Register = () => {
 
   const loginwithGoogle = ()=>{
     firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider())   
     .then((userCred)=>{
-        console.log('hi',userCred);
-
+        console.log('hi',userCred.additionalUserInfo.profile.email,userCred.additionalUserInfo.profile.name);
+            axios.post('http://localhost:3000/api/auth/signup', {
+              "name":`${userCred.additionalUserInfo.profile.name}`,
+              "email":`${userCred.additionalUserInfo.profile.email}`,
+              "password":"password"
+            })
+            .then(function (response) {
+              console.log('from axios',response);
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+            firebase.auth().createUserWithEmailAndPassword(auth,email,password)
+            .then((userCred)=>{
+              console.log(userCred);
+            })
+            .catch((error) => {
+              console.log(error.code,error.message);
+              const errorCode = error.code;
+              const errorMessage = error.message;
+              // ..
+            });
     })
   }
 
@@ -34,32 +56,74 @@ const Register = () => {
 
   const loginwithEmail = ()=>{
     console.log('test-1',email,password);
-    firebase.auth().createUserWithEmailAndPassword(email,password)
-    .then((userCred)=>{
-      console.log(userCred);
+    axios.post('http://localhost:3000/api/auth/signup', {
+      "name":`${name}`,
+      "email":`${email}`,
+      "password":`${password}`
+    })
+    .then(function (response) {
+      console.log('from axios',response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+
+   
+    console.log('tttttt',auth);
+    createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+    // Signed in 
+    const user = userCredential.user;
+    console.log(user);
+    // ...
     })
     .catch((error) => {
-      console.log(error.code,error.message);
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      // ..
-    });
+      console.log(error);
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    // ..
+  });
   }
 
-//   const loginwithEmail = ()=>{
-//     const auth = getAuth();
-// createUserWithEmailAndPassword(auth, email, password)
-//   .then((userCredential) => {
-//     // Signed in 
-//     const user = userCredential.user;
-//     // ...
-//   })
-//   .catch((error) => {
-//     const errorCode = error.code;
-//     const errorMessage = error.message;
-//     // ..
-//   });
-//   }
+  // function dataToMongo(e){
+  //     e.preventDefault();
+  //     console.log('testmongo');
+  //     axios.post('http://localhost:3000/api/auth/signup', {
+  //     "name":`${name}`,
+  //     "email":`${email}`,
+  //     "password":`${password}`
+  //   })
+  //   .then(function (response) {
+  //     console.log('from axios',response);
+  //   })
+  //   .catch(function (error) {
+  //     console.log(error);
+  //   });
+  // }
+
+  // function submit() {
+  //   console.log('submittttt');
+  //   loginwithEmail();
+  //   dataToMongo();
+  // }
+
+  // const loginwithEmail = ()=>{
+  //   const auth = getAuth();
+  //   console.log('tttttt',auth);
+  //   createUserWithEmailAndPassword(auth, email, password)
+  //   .then((userCredential) => {
+  //   // Signed in 
+  //   const user = userCredential.user;
+  //   console.log(user);
+  //   // ...
+  //   })
+  //   .catch((error) => {
+  //     console.log(error);
+  //   const errorCode = error.code;
+  //   const errorMessage = error.message;
+  //   // ..
+  // });
+  // }
 
   const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
@@ -152,6 +216,16 @@ const Register = () => {
           >
             Sign Up
           </Button>
+        <Button
+            fullWidth
+            variant="contained"
+            color="primary"
+            className="submit"
+            onClick={loginwithGoogle}
+          >
+            Sign-up with Google
+          </Button>
+          <br/>
           <Grid container>
             <Grid container justifyContent="flex-end">
               <Link to="/login" variant="body2">
@@ -160,7 +234,6 @@ const Register = () => {
             </Grid>
           </Grid>
         </form>
-        <button onClick={loginwithGoogle}>Login with google</button>
       </div>
     </div>
   );

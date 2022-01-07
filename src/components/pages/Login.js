@@ -8,6 +8,10 @@ import {
 } from "@material-ui/core";
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
+import firebase from 'firebase/compat/app';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
 
 const Login = () => {
 
@@ -21,9 +25,30 @@ const Login = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    console.log(email,password);
     // dispatch(login(email, password));
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      // Signed in 
+      const user = userCredential.user;
+      console.log(user);
+      // ...
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(error);
+    });
   };
+
+  const loginwithGoogle = ()=>{
+    firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider())   
+    .then((userCred)=>{
+        console.log(userCred);
+    })
+  }
+
+  
 
   return (
     <div className="container">
@@ -69,6 +94,15 @@ const Login = () => {
             className="submit"
           >
             Sign In
+          </Button>
+          <Button
+            fullWidth
+            variant="contained"
+            color="primary"
+            className="submit"
+            onClick={loginwithGoogle}
+          >
+            Sign-In with Google
           </Button>
           <Grid container justifyContent="flex-end">
             <Grid item>
