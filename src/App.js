@@ -6,7 +6,9 @@ import "firebase/compat/auth";
 import "firebase/compat/firestore";
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import routes from "./routes";
+import Landing from "./components/pages/Landing";
+import Login from "./components/pages/Login";
+import Register from "./components/pages/Register";
 
 function App() {
   const loginwithGoogle = () => {
@@ -35,15 +37,9 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          {routes.map((route, index) => (
-            <Route
-              key={index}
-              path={route.path}
-              exact
-              element={<route.component />}
-              render={(props) => <route.component {...props} />}
-            ></Route>
-          ))}
+          <Route path="/" exact element={<Landing />}></Route>
+          <Route path="/register" exact element={<Register />}></Route>
+          <Route path="/login" exact element={<Login />}></Route>
         </Routes>
       </BrowserRouter>
     </div>

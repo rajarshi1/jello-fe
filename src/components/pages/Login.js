@@ -4,51 +4,55 @@ import {
   Grid,
   TextField,
   Typography,
-  Container
+  Container,
 } from "@material-ui/core";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import firebase from 'firebase/compat/app';
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import 'firebase/compat/auth';
-import 'firebase/compat/firestore';
+import firebase from "firebase/compat/app";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import "firebase/compat/auth";
+import "firebase/compat/firestore";
 
 const Login = () => {
-
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   });
   const { email, password } = formData;
 
-  const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+  const onChange = (e) =>
+    setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = async (e) => {
     e.preventDefault();
     // dispatch(login(email, password));
     const auth = getAuth();
     signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      // Signed in 
-      const user = userCredential.user;
-      console.log(user);
-      // ...
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log(error);
-    });
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        console.log(user);
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(error);
+      });
   };
 
-  const loginwithGoogle = ()=>{
-    firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider())   
-    .then((userCred)=>{
+  const loginwithGoogle = () => {
+    firebase
+      .auth()
+      .signInWithPopup(new firebase.auth.GoogleAuthProvider())
+      .then((userCred) => {
         console.log(userCred);
-    })
-  }
-
-  
+      });
+  };
 
   return (
     <div className="container">
@@ -62,16 +66,16 @@ const Login = () => {
         </Typography>
         <form className="form" onSubmit={(e) => onSubmit(e)}>
           <TextField
-             variant='outlined'
-             margin='normal'
-             required
-             fullWidth
-             label='Email Address'
-             name='email'
-             autoComplete='email'
-             autoFocus
-             value={email}
-             onChange={(e) => onChange(e)}
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            label="Email Address"
+            name="email"
+            autoComplete="email"
+            autoFocus
+            value={email}
+            onChange={(e) => onChange(e)}
           />
           <TextField
             autoComplete="current-password"
