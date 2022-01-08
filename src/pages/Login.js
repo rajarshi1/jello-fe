@@ -4,11 +4,52 @@ import {
   Grid,
   TextField,
   Typography,
+  Container
 } from "@material-ui/core";
-import React from "react";
+import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
+import firebase from 'firebase/compat/app';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
 
 const Login = () => {
+
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+  });
+  const { email, password } = formData;
+
+  const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    // dispatch(login(email, password));
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      // Signed in 
+      const user = userCredential.user;
+      console.log(user);
+      // ...
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(error);
+    });
+  };
+
+  const loginwithGoogle = ()=>{
+    firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider())   
+    .then((userCred)=>{
+        console.log(userCred);
+    })
+  }
+
+  
+
   return (
     <div className="container">
       <CssBaseline />
@@ -19,16 +60,18 @@ const Login = () => {
         <Typography component="h1" variant="h5">
           Login
         </Typography>
-        <form className="form">
+        <form className="form" onSubmit={(e) => onSubmit(e)}>
           <TextField
-            autoComplete="email"
-            name="name"
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            label="Email Address"
-            autoFocus
+             variant='outlined'
+             margin='normal'
+             required
+             fullWidth
+             label='Email Address'
+             name='email'
+             autoComplete='email'
+             autoFocus
+             value={email}
+             onChange={(e) => onChange(e)}
           />
           <TextField
             autoComplete="current-password"
@@ -40,6 +83,8 @@ const Login = () => {
             fullWidth
             label="Password"
             autoFocus
+            value={password}
+            onChange={(e) => onChange(e)}
           />
           <Button
             type="submit"
@@ -49,6 +94,15 @@ const Login = () => {
             className="submit"
           >
             Sign In
+          </Button>
+          <Button
+            fullWidth
+            variant="contained"
+            color="primary"
+            className="submit"
+            onClick={loginwithGoogle}
+          >
+            Sign-In with Google
           </Button>
           <Grid container justifyContent="flex-end">
             <Grid item>

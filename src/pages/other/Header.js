@@ -4,7 +4,7 @@ import "../../assets/header.css";
 const Header = () => {
   return (
     <nav className="jello-navigation">
-      <Link to="/">Trello</Link>
+      <Link to="/">Jello</Link>
       <div className="right-navigation">
         <Link to="/login">Login</Link>
         <Link to="/register">
