@@ -54,7 +54,18 @@ const Register = () => {
 
   const { name, email, password, password2 } = formData;
 
-  const loginwithEmail = ()=>{
+  const loginwithEmail = (e)=>{
+    e.preventDefault();
+    // try {
+    //   let response = await axios.post('http://localhost:5000/api/auth/signup', {
+    //     "name":`${name}`,
+    //     "email":`${email}`,
+    //     "password":`${password}`
+    //   })
+    //   console.log(response);
+    // } catch (error) {
+    //   console.log(error);
+    // }
     console.log('test-1',email,password);
     axios.post('http://localhost:5000/api/auth/signup', {
       "name":`${name}`,
@@ -67,7 +78,6 @@ const Register = () => {
     .catch(function (error) {
       console.log(error);
     });
-
    
   
     createUserWithEmailAndPassword(auth, email, password)
@@ -151,7 +161,7 @@ const Register = () => {
           Sign up
         </Typography>
         {/* <form className="form" onSubmit={(e) => onSubmit(e)}> */}
-        <form className="form" onSubmit={loginwithEmail}>
+        <form className="form" onSubmit={loginwithEmail} method='POST'>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
