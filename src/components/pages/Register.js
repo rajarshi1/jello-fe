@@ -17,7 +17,7 @@ const Register = () => {
     firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider())   
     .then((userCred)=>{
         console.log('hi',userCred.additionalUserInfo.profile.email,userCred.additionalUserInfo.profile.name);
-            axios.post('http://localhost:3000/api/auth/signup', {
+            axios.post('http://localhost:5000/api/auth/signup', {
               "name":`${userCred.additionalUserInfo.profile.name}`,
               "email":`${userCred.additionalUserInfo.profile.email}`,
               "password":"password"
@@ -56,20 +56,20 @@ const Register = () => {
 
   const loginwithEmail = ()=>{
     console.log('test-1',email,password);
-    axios.post('http://localhost:3000/api/auth/signup', {
+    axios.post('http://localhost:5000/api/auth/signup', {
       "name":`${name}`,
       "email":`${email}`,
       "password":`${password}`
     })
     .then(function (response) {
-      console.log('from axios',response);
+      console.log(response);
     })
     .catch(function (error) {
       console.log(error);
     });
 
    
-    console.log('tttttt',auth);
+  
     createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
     // Signed in 
