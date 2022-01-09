@@ -1,46 +1,83 @@
-html,
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+}
+
 body {
-  margin: 0px;
-  height: 100vh;
-  background-color: #5067c5 !important;
+  font-size: 1rem;
+  background-color: #eee;
+  color: #333;
 }
 
-.App {
+.copyright {
   text-align: center;
+  color: #eee;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.navbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 10px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.navbar a {
+  text-decoration: none;
+  color: white;
+  font-size: 1rem;
+  opacity: 0.7;
 }
 
-.App-header {
-  background-color: #5067c5;
-  min-height: 300px;
+.navbar a:hover {
+  opacity: 1;
+}
+
+.landing {
+  height: 100vh;
+  color: white;
+  text-align: center;
+  background: linear-gradient(135deg, #0079bf, #5067c5);
+}
+
+.landing .top {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.landing .landing-inner {
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  padding: 150px 50px;
 }
 
-.App-link {
-  color: #61dafb;
+.landing h1 {
+  font-size: 5rem;
+  margin-bottom: 20px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+.landing p {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.landing p a {
+  text-decoration: none;
+  color: lightgrey;
+  transition: 0.3s;
+}
+
+.landing p a:hover {
+  color: darkgrey;
+}
+
+@media (max-width: 700px) {
+  .landing h1 {
+    font-size: 3.5rem;
   }
 }
 

@@ -4,14 +4,17 @@ import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import Button from "@material-ui/core/Button";
 import { CssBaseline, Grid, TextField, Typography } from "@material-ui/core";
+import Container from '@material-ui/core/Container';
 import { Link } from "react-router-dom";
 import firebase from 'firebase/compat/app';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
+import useStyles from '../../utils/formStyles';
 const auth = getAuth();
 
 const Register = () => {
+  const classes = useStyles();
 
   const loginwithGoogle = ()=>{
     firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider())   
@@ -151,13 +154,13 @@ const Register = () => {
   };
 
   return (
-    <div className="container">
+    <Container component='main' maxWidth='xs' className={classes.container}>
       <CssBaseline />
-      <div className="paper">
+      <div className={classes.paper}>
         <Typography component="h1" variant="h4">
-          jello
+          Jello
         </Typography>
-        <Typography component="h1" variant="h5">
+        <Typography component="h2" variant="h5">
           Sign up
         </Typography>
         {/* <form className="form" onSubmit={(e) => onSubmit(e)}> */}
@@ -245,8 +248,93 @@ const Register = () => {
           </Grid>
         </form>
       </div>
-    </div>
+    </Container>
   );
+  // return (
+  //   <Container component='main' maxWidth='xs' className={classes.container}>
+  //     <CssBaseline />
+  //     <div className={classes.paper}>
+  //       <Typography component='h1' variant='h4'>
+  //         TrelloClone
+  //       </Typography>
+  //       <Typography component='h1' variant='h5'>
+  //         Sign up
+  //       </Typography>
+  //       <form className={classes.form} onSubmit={(e) => onSubmit(e)}>
+  //         <Grid container spacing={2}>
+  //           <Grid item xs={12}>
+  //             <TextField
+  //               autoComplete='name'
+  //               name='name'
+  //               variant='outlined'
+  //               required
+  //               fullWidth
+  //               label='Your Name'
+  //               autoFocus
+  //               value={name}
+  //               onChange={(e) => onChange(e)}
+  //             />
+  //           </Grid>
+  //           <Grid item xs={12}>
+  //             <TextField
+  //               variant='outlined'
+  //               required
+  //               fullWidth
+  //               label='Email Address'
+  //               name='email'
+  //               autoComplete='email'
+  //               value={email}
+  //               onChange={(e) => onChange(e)}
+  //             />
+  //           </Grid>
+  //           <Grid item xs={12}>
+  //             <TextField
+  //               variant='outlined'
+  //               required
+  //               fullWidth
+  //               name='password'
+  //               label='Password'
+  //               type='password'
+  //               value={password}
+  //               onChange={(e) => onChange(e)}
+  //             />
+  //           </Grid>
+  //           <Grid item xs={12}>
+  //             <TextField
+  //               variant='outlined'
+  //               required
+  //               fullWidth
+  //               name='password2'
+  //               label='Confirm Password'
+  //               type='password'
+  //               value={password2}
+  //               onChange={(e) => onChange(e)}
+  //             />
+  //           </Grid>
+  //         </Grid>
+  //         <Button
+  //           type='submit'
+  //           fullWidth
+  //           variant='contained'
+  //           color='primary'
+  //           className={classes.submit}
+  //         >
+  //           Sign Up
+  //         </Button>
+  //         <Grid container justifyContent='flex-end'>
+  //           <Grid item>
+  //             <Link href='/login' variant='body2'>
+  //               Already have an account? Sign in
+  //             </Link>
+  //           </Grid>
+  //         </Grid>
+  //       </form>
+  //     </div>
+  //     {/* <Box mt={5}>
+  //       <Copyright />
+  //     </Box> */}
+  //   </Container>
+  // );
 };
 
 export default Register;

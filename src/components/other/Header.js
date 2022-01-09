@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "../../../assets/header.css";
+import "../../../App.css";
 const Header = () => {
   return (
     <nav className="jello-navigation">

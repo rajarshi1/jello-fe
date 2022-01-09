@@ -1,12 +1,20 @@
-// import logo from './logo.svg';
-//test
-import './App.css';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
-import "./App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import React, { Fragment, useEffect } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Landing from './components/pages/Landing';
+import Register from './components/pages/Register';
+import Login from './components/pages/Login';
 import routes from "./routes";
+import Alert from './components/other/Alert';
+import './App.css';
+
+// Redux
+import { Provider } from 'react-redux';
+import store from './store';
+import { loadUser } from './actions/auth';
+import setAuthToken from './utils/setAuthToken';
 
 function App() {
   
@@ -26,22 +34,36 @@ function App() {
       console.log(error);
     });
   }
+  // return (
+  //   <div className="App">
+  //     <BrowserRouter>
+  //       <Routes>
+  //         {routes.map((route, index) => (
+  //           <Route
+  //             key={index}
+  //             path={route.path}
+  //             exact
+  //             element={<route.component />}
+  //             render={(props) => <route.component {...props} />}
+  //           ></Route>
+  //         ))}
+  //       </Routes>
+  //     </BrowserRouter>
+  //   </div>
+  // );
   return (
-    <div className="App">
-      <BrowserRouter>
-        <Routes>
-          {routes.map((route, index) => (
-            <Route
-              key={index}
-              path={route.path}
-              exact
-              element={<route.component />}
-              render={(props) => <route.component {...props} />}
-            ></Route>
-          ))}
-        </Routes>
-      </BrowserRouter>
-    </div>
+    <Provider store={store}>
+      <Router>
+        <Fragment>
+          <Alert />
+          <Routes>
+            <Route exact path='/' element={Landing()} />
+            <Route exact path='/register' element={Register()} />
+            <Route exact path='/login' element={Login()} />
+          </Routes>
+        </Fragment>
+      </Router>
+    </Provider>
   );
 }
 
