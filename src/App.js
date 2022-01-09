@@ -6,7 +6,6 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Landing from './components/pages/Landing';
 import Register from './components/pages/Register';
 import Login from './components/pages/Login';
-import routes from "./routes";
 import Alert from './components/other/Alert';
 import './App.css';
 
@@ -16,7 +15,14 @@ import store from './store';
 import { loadUser } from './actions/auth';
 import setAuthToken from './utils/setAuthToken';
 
+if (localStorage.token) {
+  setAuthToken(localStorage.token);
+}
+
 function App() {
+  useEffect(() => {
+    store.dispatch(loadUser());
+  }, []);
   
   const loginwithGoogle = ()=>{
     firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider())   
@@ -56,7 +62,7 @@ function App() {
       <Router>
         <Fragment>
           <Alert />
-          <Routes>
+          <Routes>  
             <Route exact path='/' element={Landing()} />
             <Route exact path='/register' element={Register()} />
             <Route exact path='/login' element={Login()} />

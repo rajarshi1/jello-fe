@@ -4,8 +4,12 @@ import {
   Grid,
   TextField,
   Typography,
-  Container
+  Container,
+  Box
 } from "@material-ui/core";
+// import { Navigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { login } from '../../actions/auth';
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import firebase from 'firebase/compat/app';
@@ -13,12 +17,20 @@ import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } f
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 
+import useStyles from '../../utils/formStyles';
+
 const Login = () => {
+
+  const classes = useStyles();
 
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
+
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  // const dispatch = useDispatch();
+
   const { email, password } = formData;
 
   const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -48,12 +60,15 @@ const Login = () => {
     })
   }
 
-  
+  // if (isAuthenticated) {
+  //   return <Navigate to='/dashboard' />;
+  // }
 
   return (
-    <div className="container">
+    
+    <Container component='main' maxWidth='xs' className={classes.container}>
       <CssBaseline />
-      <div className="paper">
+      <div className={classes.paper}>
         <Typography component="h1" variant="h4">
           Jello
         </Typography>
@@ -70,7 +85,7 @@ const Login = () => {
              name='email'
              autoComplete='email'
              autoFocus
-             value={email}
+            //  value={email}
              onChange={(e) => onChange(e)}
           />
           <TextField
@@ -83,7 +98,7 @@ const Login = () => {
             fullWidth
             label="Password"
             autoFocus
-            value={password}
+            // value={password}
             onChange={(e) => onChange(e)}
           />
           <Button
@@ -113,7 +128,8 @@ const Login = () => {
           </Grid>
         </form>
       </div>
-    </div>
+    </Container>
+    
   );
 };
 
