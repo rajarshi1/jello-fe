@@ -18,7 +18,7 @@ export const loadUser = () => async (dispatch) => {
   }
 
   try {
-    const res = await axios.get('http://localhost:5000/api/auth/logged-in-user');
+    const res = await axios.get('/api/auth');
 
     dispatch({
       type: USER_LOADED,
@@ -59,6 +59,7 @@ export const register = ({ name, email, password }) => async (dispatch) => {
       errors.forEach((error) => dispatch(setAlert(error.msg, 'error')));
     }
     console.log(err);
+
     dispatch({
       type: REGISTER_FAIL,
     });
@@ -76,7 +77,7 @@ export const login = (email, password) => async (dispatch) => {
   const body = JSON.stringify({ email, password });
 
   try {
-    const res = await axios.post('http://localhost:5000/api/auth/login', body, config);
+    const res = await axios.post('/api/auth', body, config);
 
     dispatch({
       type: LOGIN_SUCCESS,
@@ -92,6 +93,7 @@ export const login = (email, password) => async (dispatch) => {
       errors.forEach((error) => dispatch(setAlert(error.msg, 'error')));
     }
     console.log(err);
+
     dispatch({
       type: LOGIN_FAIL,
     });

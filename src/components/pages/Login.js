@@ -5,72 +5,76 @@ import {
   TextField,
   Typography,
   Container,
-  Box
 } from "@material-ui/core";
-import { Navigate } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { login } from '../../actions/auth';
-import React, { useState, useEffect } from 'react';
-import { Link } from "react-router-dom";
-import firebase from 'firebase/compat/app';
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import 'firebase/compat/auth';
-import 'firebase/compat/firestore';
-
-import useStyles from '../../utils/formStyles';
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import firebase from "firebase/compat/app";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import "firebase/compat/auth";
+import "firebase/compat/firestore";
+import { useAuthContext } from "../../hooks/useAuthContext";
 
 const Login = () => {
-
-  const classes = useStyles();
+  const { user, authIsReady, authDispatch } = useAuthContext();
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   });
-
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  useSelector((state) => console.log(state));
-  const dispatch = useDispatch();
-
   const { email, password } = formData;
 
-  const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+  useEffect(() => {
+    if (!!authIsReady && user) {
+      navigate("/dashboard");
+    }
+  }, [user, authIsReady]);
+
+  if (!authIsReady) {
+    return <p>Loading</p>;
+  }
+
+  const onChange = (e) =>
+    setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    dispatch(login(email, password));
+    // dispatch(login(email, password));
     const auth = getAuth();
     signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      // Signed in 
-      const user = userCredential.user;
-      console.log(user);
-      // ...
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log(error);
-    });
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        console.log(user);
+        authDispatch({ type: "LOGIN", payload: user });
+        navigate("/dashboard");
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(error);
+      });
   };
-  console.log(isAuthenticated);
 
-  const loginwithGoogle = ()=>{
-    firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider())   
-    .then((userCred)=>{
+  const loginwithGoogle = () => {
+    firebase
+      .auth()
+      .signInWithPopup(new firebase.auth.GoogleAuthProvider())
+      .then((userCred) => {
         console.log(userCred);
-    })
-  }
+        authDispatch({ type: "LOGIN", payload: userCred.user });
+      });
+  };
 
-  if (isAuthenticated) {
-    return <Navigate to='/dashboard' />;
-  }
-  
   return (
-    
-    <Container component='main' maxWidth='xs' className={classes.container}>
+    <div className="container">
       <CssBaseline />
-      <div className={classes.paper}>
+      <div className="paper">
         <Typography component="h1" variant="h4">
           Jello
         </Typography>
@@ -79,16 +83,16 @@ const Login = () => {
         </Typography>
         <form className="form" onSubmit={(e) => onSubmit(e)}>
           <TextField
-             variant='outlined'
-             margin='normal'
-             required
-             fullWidth
-             label='Email Address'
-             name='email'
-             autoComplete='email'
-             autoFocus
-            //  value={email}
-             onChange={(e) => onChange(e)}
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            label="Email Address"
+            name="email"
+            autoComplete="email"
+            autoFocus
+            value={email}
+            onChange={(e) => onChange(e)}
           />
           <TextField
             autoComplete="current-password"
@@ -100,7 +104,7 @@ const Login = () => {
             fullWidth
             label="Password"
             autoFocus
-            // value={password}
+            value={password}
             onChange={(e) => onChange(e)}
           />
           <Button
@@ -130,8 +134,7 @@ const Login = () => {
           </Grid>
         </form>
       </div>
-    </Container>
-    
+    </div>
   );
 };
 
