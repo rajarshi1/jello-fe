@@ -1,8 +1,16 @@
 import React, { useEffect } from 'react';
 import { Button } from '@material-ui/core';
+import { Navigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 
 const Landing = () => {
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+
+  if (isAuthenticated) {
+    return <Navigate to='/dashboard' />;
+  }
+
   return (
     <>
       <section className='landing'>

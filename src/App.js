@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Landing from './components/pages/Landing';
 import Register from './components/pages/Register';
 import Login from './components/pages/Login';
+import Dashboard from './components/pages/Dashboard';
 import Alert from './components/other/Alert';
 import './App.css';
 
@@ -63,9 +64,10 @@ function App() {
         <Fragment>
           <Alert />
           <Routes>  
-            <Route exact path='/' element={Landing()} />
-            <Route exact path='/register' element={Register()} />
-            <Route exact path='/login' element={Login()} />
+            <Route exact path='/' element={<Landing/>} />
+            <Route exact path='/register' element={<Register/>} />
+            <Route exact path='/login' element={<Login/>} />
+            <Route exact path='/dashboard' element={<Dashboard/>} />
           </Routes>
         </Fragment>
       </Router>

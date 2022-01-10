@@ -7,7 +7,7 @@ import {
   Container,
   Box
 } from "@material-ui/core";
-// import { Navigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { login } from '../../actions/auth';
 import React, { useState, useEffect } from 'react';
@@ -29,7 +29,8 @@ const Login = () => {
   });
 
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  // const dispatch = useDispatch();
+  useSelector((state) => console.log(state,state.auth));
+  const dispatch = useDispatch();
 
   const { email, password } = formData;
 
@@ -37,7 +38,8 @@ const Login = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    // dispatch(login(email, password));
+    dispatch(login(email, password));
+    console.log(dispatch(login(email, password)),login(email,password));
     const auth = getAuth();
     signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
@@ -52,6 +54,7 @@ const Login = () => {
       console.log(error);
     });
   };
+  console.log(isAuthenticated);
 
   const loginwithGoogle = ()=>{
     firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider())   
@@ -60,9 +63,9 @@ const Login = () => {
     })
   }
 
-  // if (isAuthenticated) {
-  //   return <Navigate to='/dashboard' />;
-  // }
+  if (isAuthenticated) {
+    return <Navigate to='/dashboard' />;
+  }
 
   return (
     
