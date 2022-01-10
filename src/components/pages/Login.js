@@ -29,7 +29,7 @@ const Login = () => {
   });
 
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  useSelector((state) => console.log(state,state.auth));
+  useSelector((state) => console.log(state));
   const dispatch = useDispatch();
 
   const { email, password } = formData;
@@ -39,7 +39,6 @@ const Login = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     dispatch(login(email, password));
-    console.log(dispatch(login(email, password)),login(email,password));
     const auth = getAuth();
     signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
@@ -66,7 +65,7 @@ const Login = () => {
   if (isAuthenticated) {
     return <Navigate to='/dashboard' />;
   }
-
+  
   return (
     
     <Container component='main' maxWidth='xs' className={classes.container}>

@@ -9,6 +9,7 @@ import Login from './components/pages/Login';
 import Dashboard from './components/pages/Dashboard';
 import Alert from './components/other/Alert';
 import './App.css';
+import AuthProvider from "./contexts/AuthContext";
 
 // Redux
 import { Provider } from 'react-redux';
@@ -61,6 +62,7 @@ function App() {
   return (
     <Provider store={store}>
       <Router>
+      {/* <AuthProvider> */}
         <Fragment>
           <Alert />
           <Routes>  
@@ -70,6 +72,7 @@ function App() {
             <Route exact path='/dashboard' element={<Dashboard/>} />
           </Routes>
         </Fragment>
+      {/* </AuthProvider> */}
       </Router>
     </Provider>
   );
