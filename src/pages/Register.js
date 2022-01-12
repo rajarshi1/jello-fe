@@ -10,11 +10,12 @@ import firebase from "firebase/compat/app";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
-import useStyles from "../../utils/formStyles";
-import { useAuthContext } from "../../hooks/useAuthContext";
-import { projectAuth } from "../../config/firebase-config";
+import useStyles from "../utils/formStyles";
+import { useAuthContext } from "../hooks/useAuthContext";
+import { projectAuth } from "../config/firebase-config";
 
 const auth = getAuth();
+
 
 const Register = () => {
   const { user, authIsReady, authDispatch } = useAuthContext();
@@ -84,44 +85,11 @@ const Register = () => {
   //   firebase.auth().createUserWithEmailAndPassword(email,password)
   // }
 
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: '',
-    password2: '',
-  });
 
-  const { name, email, password, password2 } = formData;
-
-  const loginwithEmail = (e)=>{
-    e.preventDefault();
   const LoginWithEmail = async (e) => {
     e.preventDefault();
     console.log("testing");
-    // try {
-    //   let response = await axios.post('http://localhost:5000/api/auth/signup', {
-    //     "name":`${name}`,
-    //     "email":`${email}`,
-    //     "password":`${password}`
-    //   })
-    //   console.log(response);
-    // } catch (error) {
-    //   console.log(error);
-    // }
-    // console.log("test-1", email, password);
-    // axios
-    //   .post("http://localhost:5000/api/auth/signup", {
-    //     name: `${name}`,
-    //     email: `${email}`,
-    //     password: `${password}`,
-    //   })
-    //   .then(function (response) {
-    //     console.log(response);
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
-
+    
     try {
       const response = await projectAuth.createUserWithEmailAndPassword(
         auth,
@@ -140,46 +108,7 @@ const Register = () => {
     }
   };
 
-  // function dataToMongo(e){
-  //     e.preventDefault();
-  //     console.log('testmongo');
-  //     axios.post('http://localhost:3000/api/auth/signup', {
-  //     "name":`${name}`,
-  //     "email":`${email}`,
-  //     "password":`${password}`
-  //   })
-  //   .then(function (response) {
-  //     console.log('from axios',response);
-  //   })
-  //   .catch(function (error) {
-  //     console.log(error);
-  //   });
-  // }
-
-  // function submit() {
-  //   console.log('submittttt');
-  //   loginwithEmail();
-  //   dataToMongo();
-  // }
-
-  // const loginwithEmail = ()=>{
-  //   const auth = getAuth();
-  //   console.log('tttttt',auth);
-  //   createUserWithEmailAndPassword(auth, email, password)
-  //   .then((userCredential) => {
-  //   // Signed in 
-  //   // Signed in
-  //   const user = userCredential.user;
-  //   console.log(user);
-  //   // ...
-  //   })
-  //   .catch((error) => {
-  //     console.log(error);
-  //   const errorCode = error.code;
-  //   const errorMessage = error.message;
-  //   // ..
-  // });
-  // }
+ 
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -294,92 +223,5 @@ const Register = () => {
       </div>
     </Container>
   );
-  }
-  // return (
-  //   <Container component='main' maxWidth='xs' className={classes.container}>
-  //     <CssBaseline />
-  //     <div className={classes.paper}>
-  //       <Typography component='h1' variant='h4'>
-  //         TrelloClone
-  //       </Typography>
-  //       <Typography component='h1' variant='h5'>
-  //         Sign up
-  //       </Typography>
-  //       <form className={classes.form} onSubmit={(e) => onSubmit(e)}>
-  //         <Grid container spacing={2}>
-  //           <Grid item xs={12}>
-  //             <TextField
-  //               autoComplete='name'
-  //               name='name'
-  //               variant='outlined'
-  //               required
-  //               fullWidth
-  //               label='Your Name'
-  //               autoFocus
-  //               value={name}
-  //               onChange={(e) => onChange(e)}
-  //             />
-  //           </Grid>
-  //           <Grid item xs={12}>
-  //             <TextField
-  //               variant='outlined'
-  //               required
-  //               fullWidth
-  //               label='Email Address'
-  //               name='email'
-  //               autoComplete='email'
-  //               value={email}
-  //               onChange={(e) => onChange(e)}
-  //             />
-  //           </Grid>
-  //           <Grid item xs={12}>
-  //             <TextField
-  //               variant='outlined'
-  //               required
-  //               fullWidth
-  //               name='password'
-  //               label='Password'
-  //               type='password'
-  //               value={password}
-  //               onChange={(e) => onChange(e)}
-  //             />
-  //           </Grid>
-  //           <Grid item xs={12}>
-  //             <TextField
-  //               variant='outlined'
-  //               required
-  //               fullWidth
-  //               name='password2'
-  //               label='Confirm Password'
-  //               type='password'
-  //               value={password2}
-  //               onChange={(e) => onChange(e)}
-  //             />
-  //           </Grid>
-  //         </Grid>
-  //         <Button
-  //           type='submit'
-  //           fullWidth
-  //           variant='contained'
-  //           color='primary'
-  //           className={classes.submit}
-  //         >
-  //           Sign Up
-  //         </Button>
-  //         <Grid container justifyContent='flex-end'>
-  //           <Grid item>
-  //             <Link href='/login' variant='body2'>
-  //               Already have an account? Sign in
-  //             </Link>
-  //           </Grid>
-  //         </Grid>
-  //       </form>
-  //     </div>
-  //     {/* <Box mt={5}>
-  //       <Copyright />
-  //     </Box> */}
-  //   </Container>
-  // );
-};
-
+}
 export default Register;

@@ -16,9 +16,12 @@ import {
 } from "firebase/auth";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
-import { useAuthContext } from "../../hooks/useAuthContext";
+import { useAuthContext } from "../hooks/useAuthContext";
+import useStyles from '../utils/formStyles';
 
 const Login = () => {
+  const classes = useStyles();
+
   const { user, authIsReady, authDispatch } = useAuthContext();
   const navigate = useNavigate();
 
@@ -71,8 +74,18 @@ const Login = () => {
       });
   };
 
+
+  const emailInput = () => {
+    var email = prompt('Enter email to send reset password link')
+    firebase.auth().sendPasswordResetEmail(email).then(()=>{
+      window.alert('Reset password email sent please check your mail')
+    }).catch((e)=>{
+      console.log(e);
+    })
+  };
+
   return (
-    <div className="container">
+    <Container component='main' maxWidth='xs' className={classes.container}>
       <CssBaseline />
       <div className="paper">
         <Typography component="h1" variant="h4">
@@ -116,6 +129,14 @@ const Login = () => {
           >
             Sign In
           </Button>
+         
+          <Button fullWidth
+            variant="text"
+            color="secondary"
+            onClick={emailInput}
+            >
+              forgot password? Click to get reset link
+          </Button>
           <Button
             fullWidth
             variant="contained"
@@ -134,7 +155,8 @@ const Login = () => {
           </Grid>
         </form>
       </div>
-    </div>
+   
+    </Container>
   );
 };
 

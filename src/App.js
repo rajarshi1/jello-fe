@@ -3,9 +3,9 @@ import "firebase/compat/auth";
 import "firebase/compat/firestore";
 import React, { Fragment, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Landing from "./components/pages/Landing";
-import Register from "./components/pages/Register";
-import Login from "./components/pages/Login";
+import Landing from "./pages/Landing";
+import Register from "./pages/Register";
+import Login from "./pages/Login";
 import Alert from "./components/other/Alert";
 import "./App.css";
 
@@ -14,7 +14,7 @@ import { Provider } from "react-redux";
 import store from "./store";
 import { loadUser } from "./actions/auth";
 import setAuthToken from "./utils/setAuthToken";
-import Dashboard from "./components/pages/Dashboard";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   const loginwithGoogle = () => {
