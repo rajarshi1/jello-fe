@@ -38,7 +38,7 @@ export const getBoards = () => async (dispatch) => {
   try {
     dispatch({ type: CLEAR_BOARD });
 
-    const res = await axios.get('/api/boards');
+    const res = await axios.get('http://localhost:5000/api/board');
 
     dispatch({
       type: GET_BOARDS,
@@ -80,7 +80,7 @@ export const addBoard = (formData, history) => async (dispatch) => {
   try {
     const body = JSON.stringify(formData);
 
-    const res = await axios.post('/api/boards', body, config);
+    const res = await axios.post('http://localhost:5000/api/board', body, config);
 
     dispatch({
       type: ADD_BOARD,
