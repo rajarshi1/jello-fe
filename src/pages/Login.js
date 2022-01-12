@@ -8,6 +8,8 @@ import {
 } from "@material-ui/core";
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from 'react-redux';
+import { login } from '../actions/auth';
 import firebase from "firebase/compat/app";
 import {
   getAuth,
@@ -21,6 +23,7 @@ import useStyles from '../utils/formStyles';
 
 const Login = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   const { user, authIsReady, authDispatch } = useAuthContext();
   const navigate = useNavigate();
@@ -46,7 +49,7 @@ const Login = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    // dispatch(login(email, password));
+    dispatch(login(email, password));
     const auth = getAuth();
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {

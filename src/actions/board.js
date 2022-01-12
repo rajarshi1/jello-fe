@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { setAlert } from './alert';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   CLEAR_BOARD,
   GET_BOARDS,
@@ -35,6 +36,7 @@ const config = {
 
 // Get boards
 export const getBoards = () => async (dispatch) => {
+  console.log('hi from get board');
   try {
     dispatch({ type: CLEAR_BOARD });
 
@@ -68,6 +70,7 @@ export const getBoard = (id) => async (dispatch) => {
       payload: { ...res.data, listObjects: [], cardObjects: [] },
     });
   } catch (err) {
+    
     dispatch({
       type: BOARD_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status },
@@ -77,6 +80,7 @@ export const getBoard = (id) => async (dispatch) => {
 
 // Add board
 export const addBoard = (formData, history) => async (dispatch) => {
+  console.log('hi from add board');
   try {
     const body = JSON.stringify(formData);
 
@@ -91,6 +95,7 @@ export const addBoard = (formData, history) => async (dispatch) => {
 
     history.push(`/board/${res.data._id}`);
   } catch (err) {
+    console.log(err);
     dispatch({
       type: BOARD_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status },

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { addBoard } from '../../actions/board';
 import { Modal, TextField, Button } from '@material-ui/core';
@@ -16,6 +16,8 @@ const CreateBoard = ({ history }) => {
     e.preventDefault();
     dispatch(addBoard({ title }, history));
   };
+
+  useSelector((state) => console.log(state));
 
   const body = (
     <div className={`${classes.paper} ${classes.createBoardModal}`}>
