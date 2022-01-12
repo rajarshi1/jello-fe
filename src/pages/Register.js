@@ -84,6 +84,17 @@ const Register = () => {
   //   firebase.auth().createUserWithEmailAndPassword(email,password)
   // }
 
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    password: '',
+    password2: '',
+  });
+
+  const { name, email, password, password2 } = formData;
+
+  const loginwithEmail = (e)=>{
+    e.preventDefault();
   const LoginWithEmail = async (e) => {
     e.preventDefault();
     console.log("testing");
@@ -156,6 +167,7 @@ const Register = () => {
   //   console.log('tttttt',auth);
   //   createUserWithEmailAndPassword(auth, email, password)
   //   .then((userCredential) => {
+  //   // Signed in 
   //   // Signed in
   //   const user = userCredential.user;
   //   console.log(user);
@@ -282,6 +294,7 @@ const Register = () => {
       </div>
     </Container>
   );
+  }
   // return (
   //   <Container component='main' maxWidth='xs' className={classes.container}>
   //     <CssBaseline />
