@@ -1,7 +1,7 @@
 import { Button } from "@material-ui/core";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuthContext } from "../../hooks/useAuthContext";
+import { useAuthContext } from "../hooks/useAuthContext";
 import firebase from "firebase/compat/app";
 // import { Link } from "react-router-dom";
 

@@ -10,9 +10,9 @@ import firebase from "firebase/compat/app";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
-import useStyles from "../../utils/formStyles";
-import { useAuthContext } from "../../hooks/useAuthContext";
-import { projectAuth } from "../../config/firebase-config";
+import useStyles from "../utils/formStyles";
+import { useAuthContext } from "../hooks/useAuthContext";
+import { projectAuth } from "../config/firebase-config";
 
 const auth = getAuth();
 

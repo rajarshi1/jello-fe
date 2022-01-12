@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Button } from "@material-ui/core";
-import { useAuthContext } from "../../hooks/useAuthContext";
+import { useAuthContext } from "../hooks/useAuthContext";
 import { useNavigate } from "react-router-dom";
 
 const Landing = () => {

@@ -16,7 +16,7 @@ import {
 } from "firebase/auth";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
-import { useAuthContext } from "../../hooks/useAuthContext";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const Login = () => {
   const { user, authIsReady, authDispatch } = useAuthContext();
