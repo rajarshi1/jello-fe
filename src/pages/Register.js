@@ -7,7 +7,11 @@ import { CssBaseline, Grid, TextField, Typography } from "@material-ui/core";
 import Container from "@material-ui/core/Container";
 import { Link, useNavigate } from "react-router-dom";
 import firebase from "firebase/compat/app";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
 import useStyles from "../utils/formStyles";
@@ -84,9 +88,7 @@ const Register = () => {
   //   firebase.auth().createUserWithEmailAndPassword(email,password)
   // }
 
-  const loginwithEmail = (e)=>{
-    e.preventDefault();
-  const LoginWithEmail = async (e) => {
+  const loginwithEmail = async (e) => {
     e.preventDefault();
     console.log("testing");
     // try {
@@ -124,6 +126,10 @@ const Register = () => {
         throw new Error("Unable to sign up user");
       }
 
+      //add display name to user
+      await updateProfile(auth.currentUser, { displayName: name });
+
+      //dispatch login action
       authDispatch({ type: "LOGIN", payload: response.user });
       navigate("/dashboard");
     } catch (error) {
@@ -158,7 +164,7 @@ const Register = () => {
   //   console.log('tttttt',auth);
   //   createUserWithEmailAndPassword(auth, email, password)
   //   .then((userCredential) => {
-  //   // Signed in 
+  //   // Signed in
   //   // Signed in
   //   const user = userCredential.user;
   //   console.log(user);
@@ -199,7 +205,7 @@ const Register = () => {
           Sign up
         </Typography>
         {/* <form className="form" onSubmit={(e) => onSubmit(e)}> */}
-        <form className="form" onSubmit={LoginWithEmail} method="POST">
+        <form className="form" onSubmit={loginwithEmail} method="POST">
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
@@ -285,92 +291,6 @@ const Register = () => {
       </div>
     </Container>
   );
-  }
-  // return (
-  //   <Container component='main' maxWidth='xs' className={classes.container}>
-  //     <CssBaseline />
-  //     <div className={classes.paper}>
-  //       <Typography component='h1' variant='h4'>
-  //         TrelloClone
-  //       </Typography>
-  //       <Typography component='h1' variant='h5'>
-  //         Sign up
-  //       </Typography>
-  //       <form className={classes.form} onSubmit={(e) => onSubmit(e)}>
-  //         <Grid container spacing={2}>
-  //           <Grid item xs={12}>
-  //             <TextField
-  //               autoComplete='name'
-  //               name='name'
-  //               variant='outlined'
-  //               required
-  //               fullWidth
-  //               label='Your Name'
-  //               autoFocus
-  //               value={name}
-  //               onChange={(e) => onChange(e)}
-  //             />
-  //           </Grid>
-  //           <Grid item xs={12}>
-  //             <TextField
-  //               variant='outlined'
-  //               required
-  //               fullWidth
-  //               label='Email Address'
-  //               name='email'
-  //               autoComplete='email'
-  //               value={email}
-  //               onChange={(e) => onChange(e)}
-  //             />
-  //           </Grid>
-  //           <Grid item xs={12}>
-  //             <TextField
-  //               variant='outlined'
-  //               required
-  //               fullWidth
-  //               name='password'
-  //               label='Password'
-  //               type='password'
-  //               value={password}
-  //               onChange={(e) => onChange(e)}
-  //             />
-  //           </Grid>
-  //           <Grid item xs={12}>
-  //             <TextField
-  //               variant='outlined'
-  //               required
-  //               fullWidth
-  //               name='password2'
-  //               label='Confirm Password'
-  //               type='password'
-  //               value={password2}
-  //               onChange={(e) => onChange(e)}
-  //             />
-  //           </Grid>
-  //         </Grid>
-  //         <Button
-  //           type='submit'
-  //           fullWidth
-  //           variant='contained'
-  //           color='primary'
-  //           className={classes.submit}
-  //         >
-  //           Sign Up
-  //         </Button>
-  //         <Grid container justifyContent='flex-end'>
-  //           <Grid item>
-  //             <Link href='/login' variant='body2'>
-  //               Already have an account? Sign in
-  //             </Link>
-  //           </Grid>
-  //         </Grid>
-  //       </form>
-  //     </div>
-  //     {/* <Box mt={5}>
-  //       <Copyright />
-  //     </Box> */}
-  //   </Container>
-  // );
 };
 
 export default Register;

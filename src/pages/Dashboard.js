@@ -44,7 +44,7 @@ const Dashboard = () => {
           </Button>
         </div>
       </nav>
-      <section classname="">
+      <section className="">
         <h1>Welcome {user && user.name ? user.name : ''}</h1>
         <h2>Your Board</h2>
         <ul>
