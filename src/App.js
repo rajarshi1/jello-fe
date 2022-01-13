@@ -8,7 +8,9 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Board from "./pages/Board";
 import Alert from "./components/other/Alert";
+import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import "./App.css";
+import NoFoundRoute from "./pages/NoRouteFound/NoFoundRoute";
 
 // Redux
 import { Provider } from "react-redux";
@@ -47,10 +49,13 @@ function App() {
           <Alert />
           <Routes>
             <Route exact path="/" element={<Landing />} />
-            <Route exact path="/dashboard" element={<Dashboard />} />
             <Route exact path="/register" element={<Register />} />
             <Route exact path="/login" element={<Login />} />
-            <Route exact path="/board/:id" element={<Board />} />
+            <Route path="/" element={<PrivateRoute />}>
+              <Route exact path="/dashboard" element={<Dashboard />} />
+              <Route exact path="/board/:id" element={<Board />} />
+            </Route>
+            <Route path="*" element={<NoFoundRoute />}></Route>
           </Routes>
         </Fragment>
       </Router>

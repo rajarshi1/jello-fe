@@ -8,22 +8,10 @@ import firebase from "firebase/compat/app";
 const Dashboard = () => {
   const { user, authIsReady, authDispatch } = useAuthContext();
   const navigate = useNavigate();
-  console.log(user);
-
-  useEffect(() => {
-    if (!!authIsReady && !user) {
-      navigate("/login");
-    }
-  }, [user, authIsReady]);
-
-  if (!authIsReady) {
-    return <p>Loading</p>;
-  }
 
   const handleUserLogout = (e) => {
     try {
       const logout = firebase.auth().signOut();
-      console.log(logout);
       if (!logout) {
         throw new Error("Unable to logout");
       }
