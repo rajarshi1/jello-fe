@@ -40,7 +40,7 @@ export const getBoards = () => async (dispatch) => {
   try {
     dispatch({ type: CLEAR_BOARD });
 
-    const res = await axios.get('http://localhost:5000/api/board');
+    const res = await axios.get('http://localhost:5000/api/boards');
 
     dispatch({
       type: GET_BOARDS,
@@ -57,7 +57,7 @@ export const getBoards = () => async (dispatch) => {
 // Get board
 export const getBoard = (id) => async (dispatch) => {
   try {
-    const res = await axios.get(`/api/boards/${id}`);
+    const res = await axios.get(`http://localhost:5000/api/boards/${id}`);
 
     if (res) {
       axios.defaults.headers.common['boardId'] = id;
@@ -84,7 +84,7 @@ export const addBoard = (formData, history) => async (dispatch) => {
   try {
     const body = JSON.stringify(formData);
 
-    const res = await axios.post('http://localhost:5000/api/board', body, config);
+    const res = await axios.post('http://localhost:5000/api/boards', body, config);
 
     dispatch({
       type: ADD_BOARD,

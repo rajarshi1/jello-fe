@@ -23,7 +23,7 @@ export const AuthContextProvider = ({ children }) => {
     authIsReady: false,
   });
 
-  console.log(authState);
+  // console.log(authState);
 
   useEffect(() => {
     const unsub = auth.onAuthStateChanged((user) => {
@@ -31,7 +31,7 @@ export const AuthContextProvider = ({ children }) => {
       unsub();
     });
   }, []);
-  console.log("AuthContext state:", authState);
+  // console.log("AuthContext state:", authState);
   return (
     <AuthContext.Provider value={{ ...authState, authDispatch }}>
       {children}

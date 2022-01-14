@@ -149,6 +149,277 @@ body {
   background-color: darkgrey;
 }
 
+.board-and-navbar {
+  background-size: cover;
+  height: 100vh;
+}
+
+.board-and-navbar .navbar {
+  background-color:#026aa7;
+}
+
+.board-loading {
+  text-align: center;
+  margin-top: 20%;
+}
+
+.board {
+  padding: 10px;
+}
+
+.board .board-top {
+  padding: 5px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.board .board-top .board-top-left {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+@media (max-width: 960px) {
+  .board .board-top .board-top-left {
+    flex-direction: column;
+  }
+}
+
+.board .board-top .board-top-left .board-title {
+  cursor: pointer;
+  color: rgb(53, 51, 51);
+  padding: 5px 0 0 5px;
+  max-width: 500px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.board .board-top .board-top-left .board-title-form {
+  background-color: snow;
+}
+
+.board .board-top .board-top-left .board-members-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 20px;
+}
+
+@media (max-width: 960px) {
+  .board .board-top .board-top-left .board-members-wrapper {
+    margin: 20px 20px 20px 0;
+  }
+}
+
+.board .board-top .board-top-left .board-members-wrapper .board-members {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.board .board-top .board-top-left .invite {
+  margin-left: 10px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.board .board-top .board-top-left .invite .search-member {
+  width: 250px;
+  margin-right: 10px;
+  height: 2.5rem;
+}
+
+.board .avatar {
+  margin-right: 2px;
+  color: darkslategrey;
+  cursor: default;
+  background-color: #eee;
+}
+
+.board .avatar:hover {
+  background-color: #ddd;
+}
+
+.board .create-list-button {
+  margin-top: 10px;
+  min-width: 200px;
+}
+
+.board .create-list-form {
+  min-width: 280px;
+  padding: 0 10px 10px;
+  margin-top: 10px;
+  height: fit-content;
+  background-color: #eee;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+}
+
+.board .archived-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.board .lists {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+}
+
+@media (min-height: 600px) and (min-width: 1000px) {
+  .board .lists {
+    min-height: 83vh;
+  }
+}
+
+@media (min-height: 960px) {
+  .board .lists {
+    min-height: 88vh;
+  }
+}
+
+.board .lists .list-wrapper {
+  background-color: #eee;
+  border-radius: 5px;
+  min-width: 280px;
+  max-width: 280px;
+  height: fit-content;
+  margin-top: 10px;
+  margin-right: 10px;
+  padding: 10px;
+}
+
+.board .lists .list-wrapper .list-top {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.board .lists .list-wrapper .list-top .list-title {
+  cursor: pointer;
+  padding: 5px 0 0 5px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.board .lists .list-wrapper .create-card-button {
+  margin-top: 5px;
+}
+
+.board .lists .list-wrapper .create-card-form {
+  margin-top: 5px;
+  display: flex;
+  flex-direction: column;
+}
+
+.board .lists .list-wrapper .card-edit-content {
+  padding-top: 0;
+  padding-bottom: 5px;
+}
+
+.board .lists .list-wrapper .card-actions {
+  margin-bottom: 5px;
+}
+
+.board .lists .list-wrapper .not-adding-card {
+  max-height: 64vh;
+}
+
+@media (min-height: 960px) {
+  .board .lists .list-wrapper .not-adding-card {
+    max-height: 75vh;
+  }
+}
+
+.board .lists .list-wrapper .adding-card {
+  max-height: 69vh;
+}
+
+@media (min-height: 960px) {
+  .board .lists .list-wrapper .adding-card {
+    max-height: 80vh;
+  }
+}
+
+.board .lists .list-wrapper .list {
+  min-height: 1px;
+  overflow-y: auto;
+}
+
+.board .lists .list-wrapper .list .cards {
+  display: flex;
+  flex-direction: column;
+  margin-right: 2px;
+}
+
+.board .lists .list-wrapper .list .cards .card {
+  margin: 5px 0;
+  position: relative;
+  cursor: pointer;
+}
+
+.board .lists .list-wrapper .list .cards .card .card-label {
+  height: 9px;
+  width: 45px;
+  border-radius: 5px;
+  margin-bottom: 5px;
+}
+
+.board .lists .list-wrapper .list .cards .card .description-indicator {
+  margin: 3px 5px -5px -3px;
+}
+
+.board .lists .list-wrapper .list .cards .card .checklist-indicator {
+  display: flex;
+  align-items: center;
+  padding: 1px 5px 0 4px;
+  height: 25px;
+  margin: auto;
+}
+
+.board .lists .list-wrapper .list .cards .card .checklist-indicator .checklist-indicator-icon {
+  margin-right: 2px;
+}
+
+.board .lists .list-wrapper .list .cards .card .completed-checklist-indicator {
+  background-color: #00b800;
+  border-radius: 5px;
+  color: snow;
+}
+
+.board .lists .list-wrapper .list .cards .card .card-bottom {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-top: 3px;
+  margin-bottom: -5px;
+}
+
+.board .lists .list-wrapper .list .cards .card .card-bottom .card-bottom-left {
+  display: flex;
+}
+
+.board .lists .list-wrapper .list .cards .card .card-bottom .card-member-avatars {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.board .lists .list-wrapper .list .cards .card .card-bottom .card-member-avatars .avatar {
+  width: 30px;
+  height: 30px;
+  font-size: 0.8rem;
+  background-color: #ddd;
+}
+
+.board .lists .list-wrapper .list .cards .card .card-bottom .card-member-avatars .avatar:hover {
+  background-color: #ccc;
+}
+
+.board .lists .list-wrapper .list .cards .mouse-over {
+  background-color: whitesmoke;
+}
+
 
 .container {
   display: flex;
