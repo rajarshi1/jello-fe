@@ -84,7 +84,7 @@ export const addBoard = (formData, history) => async (dispatch) => {
   try {
     const body = JSON.stringify(formData);
 
-    const res = await axios.post('http://localhost:5000/api/board', body, config);
+    const res = await axios.post('http://localhost:5000/api/boards', body, config);
 
     dispatch({
       type: ADD_BOARD,

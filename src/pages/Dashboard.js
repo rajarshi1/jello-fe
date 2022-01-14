@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useSelector, useDispatch } from 'react-redux';
 import { getBoards } from '../actions/board';
+import { loadUser } from '../actions/auth';
 import firebase from "firebase/compat/app";
 import { Link } from "react-router-dom";
 import Navbar from '../components/other/Navbar';
@@ -11,21 +12,25 @@ import CreateBoard from '../components/other/CreateBoard';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 const Dashboard = () => {
-  const { user, authIsReady, authDispatch } = useAuthContext();
+  const { user, isAuthenticated } = useSelector((state) => state.auth);
+  // const { user, authIsReady, authDispatch } = useAuthContext();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  console.log(user,isAuthenticated);
 
-  useEffect(() => {
-    if (!!authIsReady && !user) {
-      navigate("/login");
-    }
-  }, [user, authIsReady]);
+  useSelector((state)=>console.log(state));
+
+  // useEffect(() => {
+  //   if (!!authIsReady && !user) {
+  //     navigate("/login");
+  //   }
+  // }, [user, authIsReady]);
   
   useEffect(() => {
     dispatch(getBoards());
   }, [dispatch]);
   
-  console.log(user);
+  // console.log(user);
   
   const boards = useSelector((state) => state.board.boards);
   const loading = useSelector((state) => state.board.dashboardLoading);
@@ -33,24 +38,24 @@ const Dashboard = () => {
   
  
   
-  if (!authIsReady) {
-    return <p>Loading</p>;
-  }
+  // if (!authIsReady) {
+  //   return <p>Loading</p>;
+  // }
   
   
-  const handleUserLogout = (e) => {
-    try {
-      const logout = firebase.auth().signOut();
-      console.log(logout);
-      if (!logout) {
-        throw new Error("Unable to logout");
-      }
-      authDispatch({ type: "LOGOUT" });
-      navigate("/login");
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const handleUserLogout = (e) => {
+  //   try {
+  //     const logout = firebase.auth().signOut();
+  //     console.log(logout);
+  //     if (!logout) {
+  //       throw new Error("Unable to logout");
+  //     }
+  //     authDispatch({ type: "LOGOUT" });
+  //     navigate("/login");
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   // return (
     

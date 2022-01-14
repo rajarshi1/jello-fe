@@ -12,6 +12,7 @@ import Members from '../components/board/Members';
 import Navbar from '../components/other/Navbar';
 
 const Board = ({ match }) => {
+  console.log(match);
   const board = useSelector((state) => state.board.board);
   useSelector((state)=>console.log(state));
   // const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
