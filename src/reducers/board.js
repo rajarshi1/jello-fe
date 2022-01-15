@@ -25,6 +25,7 @@ import {
     DELETE_CHECKLIST_ITEM,
   } from '../actions/types';
   
+  
   const initialState = {
     boards: [],
     board: null,

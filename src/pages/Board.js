@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation, useParams } from 'react-router-dom';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { getBoard, moveCard, moveList } from '../actions/board';
 import { CircularProgress, Box } from '@material-ui/core';
@@ -17,11 +17,13 @@ const Board = ({ match }) => {
   useSelector((state)=>console.log(state));
   // const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const dispatch = useDispatch();
-
+  const params = useParams();
+  console.log(useParams(),useLocation(), params.id);
   useEffect(() => {
-    dispatch(getBoard('61defc3ff66f11c38362a36e'));
-    console.log();
-  }, [dispatch]);
+    if(params?.id){
+      dispatch(getBoard(params.id));
+    }
+  },[params]);
 
   useEffect(() => {
     if (board?.title) document.title = board.title + ' | TrelloClone';

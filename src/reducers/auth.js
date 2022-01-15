@@ -20,6 +20,7 @@ import {
   
     switch (type) {
       case USER_LOADED:
+        localStorage.setItem('user', payload);
         return {
           ...state,
           isAuthenticated: true,
@@ -40,9 +41,11 @@ import {
       case LOGIN_FAIL:
       case LOGOUT:
         localStorage.removeItem('token');
+        localStorage.removeItem('user');
         return {
           ...state,
           token: null,
+          user:null,
           isAuthenticated: false,
           loading: false,
         };
