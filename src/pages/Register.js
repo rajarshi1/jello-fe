@@ -18,6 +18,9 @@ import useStyles from "../utils/formStyles";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { projectAuth } from "../config/firebase-config";
 
+/** using fomik for form validation */
+import { useFormik } from "formik";
+
 const auth = getAuth();
 
 const Register = () => {
@@ -26,14 +29,98 @@ const Register = () => {
   const classes = useStyles();
   const navigate = useNavigate();
 
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    password: "",
-    password2: "",
-  });
+  const loginwithEmail = async (values) => {
+    // try {
+    //   let response = await axios.post('http://localhost:5000/api/auth/signup', {
+    //     "name":`${values.name}`,
+    //     "email":`${values.email}`,
+    //     "password":`${values.password}`
+    //   })
+    //   console.log(response);
+    // } catch (error) {
+    //   console.log(error);
+    // }
+    // console.log("test-1", email, password);
+    // axios
+    //   .post("http://localhost:5000/api/auth/signup", {
+    //     name: `${values.name}`,
+    //     email: `${values.email}`,
+    //     password: `${values.password}`,
+    //   })
+    //   .then(function (response) {
+    //     console.log(response);
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //   });
 
-  const { name, email, password, password2 } = formData;
+    try {
+      const response = await createUserWithEmailAndPassword(
+        auth,
+        values.email,
+        values.password
+      );
+      console.log(response, "response");
+      if (!response) {
+        throw new Error("Unable to sign up user");
+      }
+
+      //add display name to user
+      await updateProfile(auth.currentUser, { displayName: values.name });
+
+      //dispatch login action
+      authDispatch({ type: "LOGIN", payload: response.user });
+      navigate("/dashboard");
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  /** create LoginValidate to pass in formik object */
+  const registerValidate = (values) => {
+    const errors = {};
+
+    /** check for email */
+    if (!values.name) {
+      errors.name = "Name Required";
+    }
+
+    /** check for email */
+    if (!values.email) {
+      errors.email = "Email Required";
+    } else if (
+      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
+    ) {
+      errors.email = "Invalid email address";
+    }
+
+    /** check for password value */
+    if (!values.password) {
+      errors.password = "Password Required";
+    } else if (values.password.length < 8) {
+      errors.password = "Password length should be 8 digit atleast";
+    }
+
+    /** checking for password2 and matching with password */
+    if (!values.password2) {
+      errors.password2 = "Confirm Password Required";
+    } else if (values.password !== values.password2) {
+      errors.password2 = "Password and Confirm password didn't match";
+    }
+
+    console.log(errors, "errors");
+    return errors;
+  };
+
+  /** create loginFormik object with useFormik to handle login form submission */
+  const registerFormik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    onSubmit: loginwithEmail,
+    validate: registerValidate,
+  });
 
   useEffect(() => {
     if (!!authIsReady && user) {
@@ -69,7 +156,11 @@ const Register = () => {
           });
         firebase
           .auth()
-          .createUserWithEmailAndPassword(auth, email, password)
+          .createUserWithEmailAndPassword(
+            auth,
+            userCred.additionalUserInfo.profile.email,
+            userCred.additionalUserInfo.profile.password
+          )
           .then((userCred) => {
             authDispatch({ type: "LOGIN", payload: userCred.user });
             console.log(userCred.user);
@@ -87,55 +178,6 @@ const Register = () => {
   // const loginwithEmail = ()=>{
   //   firebase.auth().createUserWithEmailAndPassword(email,password)
   // }
-
-  const loginwithEmail = async (e) => {
-    e.preventDefault();
-    console.log("testing");
-    // try {
-    //   let response = await axios.post('http://localhost:5000/api/auth/signup', {
-    //     "name":`${name}`,
-    //     "email":`${email}`,
-    //     "password":`${password}`
-    //   })
-    //   console.log(response);
-    // } catch (error) {
-    //   console.log(error);
-    // }
-    // console.log("test-1", email, password);
-    // axios
-    //   .post("http://localhost:5000/api/auth/signup", {
-    //     name: `${name}`,
-    //     email: `${email}`,
-    //     password: `${password}`,
-    //   })
-    //   .then(function (response) {
-    //     console.log(response);
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
-
-    try {
-      const response = await projectAuth.createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      console.log(response, "response");
-      if (!response) {
-        throw new Error("Unable to sign up user");
-      }
-
-      //add display name to user
-      await updateProfile(auth.currentUser, { displayName: name });
-
-      //dispatch login action
-      authDispatch({ type: "LOGIN", payload: response.user });
-      navigate("/dashboard");
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
 
   // function dataToMongo(e){
   //     e.preventDefault();
@@ -178,22 +220,6 @@ const Register = () => {
   // });
   // }
 
-  const onChange = (e) =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-
-  // const dispatch = useDispatch();
-
-  const onSubmit = async (e) => {
-    e.preventDefault();
-    if (password !== password2) {
-      // dispatch(setAlert('Passwords do not match', 'error'));
-      console.log("passwords dont match");
-    } else {
-      // dispatch(register({ name, email, password }));
-      console.log("hi", name, email, password);
-    }
-  };
-
   return (
     <Container component="main" maxWidth="xs" className={classes.container}>
       <CssBaseline />
@@ -205,60 +231,75 @@ const Register = () => {
           Sign up
         </Typography>
         {/* <form className="form" onSubmit={(e) => onSubmit(e)}> */}
-        <form className="form" onSubmit={loginwithEmail} method="POST">
+        <form
+          className="form"
+          onSubmit={registerFormik.handleSubmit}
+          method="POST"
+        >
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
                 autoComplete="name"
                 name="name"
                 variant="outlined"
-                required
                 fullWidth
                 label="Your Name"
-                autoFocus
-                value={name}
-                onChange={(e) => onChange(e)}
+                onChange={registerFormik.handleChange}
+                onBlur={registerFormik.handleBlur}
+                value={registerFormik.values.name}
               />
+              {registerFormik.touched.name && registerFormik.errors.name ? (
+                <div className="errors">{registerFormik.errors.name}</div>
+              ) : null}
             </Grid>
+
             <Grid item xs={12}>
               <TextField
                 autoComplete="email"
                 name="email"
                 variant="outlined"
-                required
                 type="email"
                 fullWidth
                 label="Email Address"
-                autoFocus
-                value={email}
-                onChange={(e) => onChange(e)}
+                onChange={registerFormik.handleChange}
+                onBlur={registerFormik.handleBlur}
+                value={registerFormik.values.email}
               />
+              {registerFormik.touched.email && registerFormik.errors.email ? (
+                <div className="errors">{registerFormik.errors.email}</div>
+              ) : null}
             </Grid>
             <Grid item xs={12}>
               <TextField
                 name="password"
                 variant="outlined"
-                required
                 fullWidth
                 label="Password"
                 type="password"
-                autoFocus
-                value={password}
-                onChange={(e) => onChange(e)}
+                onChange={registerFormik.handleChange}
+                onBlur={registerFormik.handleBlur}
+                value={registerFormik.values.password}
               />
+              {registerFormik.touched.password &&
+              registerFormik.errors.password ? (
+                <div className="errors">{registerFormik.errors.password}</div>
+              ) : null}
             </Grid>
             <Grid item xs={12}>
               <TextField
                 name="password2"
                 type="password"
                 variant="outlined"
-                required
                 fullWidth
                 label="Confirm Password"
-                autoFocus
-                value={password2}
-                onChange={(e) => onChange(e)}
+                onChange={registerFormik.handleChange}
+                onBlur={registerFormik.handleBlur}
+                value={registerFormik.values.password2}
               />
+              {registerFormik.touched.password2 &&
+              registerFormik.errors.password2 ? (
+                <div className="errors">{registerFormik.errors.password2}</div>
+              ) : null}
             </Grid>
           </Grid>
           <Button

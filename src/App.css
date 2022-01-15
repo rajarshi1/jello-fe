@@ -2,7 +2,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 body {
@@ -155,7 +155,7 @@ body {
 }
 
 .board-and-navbar .navbar {
-  background-color:#026aa7;
+  background-color: #026aa7;
 }
 
 .board-loading {
@@ -378,7 +378,14 @@ body {
   margin: auto;
 }
 
-.board .lists .list-wrapper .list .cards .card .checklist-indicator .checklist-indicator-icon {
+.board
+  .lists
+  .list-wrapper
+  .list
+  .cards
+  .card
+  .checklist-indicator
+  .checklist-indicator-icon {
   margin-right: 2px;
 }
 
@@ -400,26 +407,48 @@ body {
   display: flex;
 }
 
-.board .lists .list-wrapper .list .cards .card .card-bottom .card-member-avatars {
+.board
+  .lists
+  .list-wrapper
+  .list
+  .cards
+  .card
+  .card-bottom
+  .card-member-avatars {
   display: flex;
   flex-wrap: wrap;
 }
 
-.board .lists .list-wrapper .list .cards .card .card-bottom .card-member-avatars .avatar {
+.board
+  .lists
+  .list-wrapper
+  .list
+  .cards
+  .card
+  .card-bottom
+  .card-member-avatars
+  .avatar {
   width: 30px;
   height: 30px;
   font-size: 0.8rem;
   background-color: #ddd;
 }
 
-.board .lists .list-wrapper .list .cards .card .card-bottom .card-member-avatars .avatar:hover {
+.board
+  .lists
+  .list-wrapper
+  .list
+  .cards
+  .card
+  .card-bottom
+  .card-member-avatars
+  .avatar:hover {
   background-color: #ccc;
 }
 
 .board .lists .list-wrapper .list .cards .mouse-over {
   background-color: whitesmoke;
 }
-
 
 .container {
   display: flex;
@@ -446,4 +475,11 @@ body {
 }
 .submit {
   margin-top: 5px !important;
+}
+
+.errors {
+  color: #d8000c;
+  background-color: #ffbaba;
+  border-radius: 5px;
+  padding: 5px;
 }

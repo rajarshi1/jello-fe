@@ -2,27 +2,19 @@ import { Button } from "@material-ui/core";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../hooks/useAuthContext";
-<<<<<<< HEAD
-=======
 import { useSelector, useDispatch } from 'react-redux';
 import { getBoards } from '../actions/board';
 import { loadUser } from '../actions/auth';
->>>>>>> 4631498879acb3900617529f264914792f0aa16d
 import firebase from "firebase/compat/app";
 // import { Link } from "react-router-dom";
 
 const Dashboard = () => {
-<<<<<<< HEAD
+  // const { user, isAuthenticated } = useSelector((state) => state.auth);
   const { user, authIsReady, authDispatch } = useAuthContext();
-=======
-  const { user, isAuthenticated } = useSelector((state) => state.auth);
-  // const { user, authIsReady, authDispatch } = useAuthContext();
   const dispatch = useDispatch();
->>>>>>> 4631498879acb3900617529f264914792f0aa16d
   const navigate = useNavigate();
-  console.log(user,isAuthenticated);
+  // console.log(user,isAuthenticated);
 
-<<<<<<< HEAD
   const handleUserLogout = (e) => {
     try {
       const logout = firebase.auth().signOut();
@@ -35,7 +27,6 @@ const Dashboard = () => {
       console.log(error);
     }
   };
-=======
   useSelector((state)=>console.log(state));
 
   // useEffect(() => {
@@ -74,7 +65,6 @@ const Dashboard = () => {
   //     console.log(error);
   //   }
   // };
->>>>>>> 4631498879acb3900617529f264914792f0aa16d
 
   return (
     <div className="">

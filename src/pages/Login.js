@@ -18,16 +18,60 @@ import "firebase/compat/auth";
 import "firebase/compat/firestore";
 import { useAuthContext } from "../hooks/useAuthContext";
 
+/** using fomik for form validation */
+import { useFormik } from "formik";
+
 const Login = () => {
   const { user, authIsReady, authDispatch } = useAuthContext();
   const navigate = useNavigate();
 
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
-  const { email, password } = formData;
+  /** login with email */
+  const loginWithEmail = async (values) => {
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, values.email, values.password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        authDispatch({ type: "LOGIN", payload: user });
+        navigate("/dashboard");
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(error);
+      });
+  };
 
+  /** create LoginValidate to pass in formik object */
+  const LoginValidate = (values) => {
+    const errors = {};
+
+    if (!values.email) {
+      errors.email = "Email Required";
+    } else if (
+      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
+    ) {
+      errors.email = "Invalid email address";
+    }
+
+    if (!values.password) {
+      errors.password = "Password Required";
+    }
+    console.log(errors, "errors");
+    return errors;
+  };
+
+  /** create loginFormik object with useFormik to handle login form submission */
+  const loginFormik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    onSubmit: loginWithEmail,
+    validate: LoginValidate,
+  });
+
+  /** using useEffect to check the user and authIsReady */
   useEffect(() => {
     if (!!authIsReady && user) {
       navigate("/dashboard");
@@ -37,29 +81,6 @@ const Login = () => {
   if (!authIsReady) {
     return <p>Loading</p>;
   }
-
-  const onChange = (e) =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-
-  const onSubmit = async (e) => {
-    e.preventDefault();
-    // dispatch(login(email, password));
-    const auth = getAuth();
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        console.log(user);
-        authDispatch({ type: "LOGIN", payload: user });
-        navigate("/dashboard");
-        // ...
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(error);
-      });
-  };
 
   const loginwithGoogle = () => {
     firebase
@@ -81,8 +102,9 @@ const Login = () => {
         <Typography component="h1" variant="h5">
           Login
         </Typography>
-        <form className="form" onSubmit={(e) => onSubmit(e)}>
+        <form className="form" onSubmit={loginFormik.handleSubmit}>
           <TextField
+            id="email"
             variant="outlined"
             margin="normal"
             required
@@ -90,11 +112,15 @@ const Login = () => {
             label="Email Address"
             name="email"
             autoComplete="email"
-            autoFocus
-            value={email}
-            onChange={(e) => onChange(e)}
+            onChange={loginFormik.handleChange}
+            onBlur={loginFormik.handleBlur}
+            value={loginFormik.values.email}
           />
+          {loginFormik.touched.email && loginFormik.errors.email ? (
+            <div className="errors">{loginFormik.errors.email}</div>
+          ) : null}
           <TextField
+            id="password"
             autoComplete="current-password"
             margin="normal"
             name="password"
@@ -103,10 +129,13 @@ const Login = () => {
             type="password"
             fullWidth
             label="Password"
-            autoFocus
-            value={password}
-            onChange={(e) => onChange(e)}
+            onChange={loginFormik.handleChange}
+            onBlur={loginFormik.handleBlur}
+            value={loginFormik.values.password}
           />
+          {loginFormik.touched.password && loginFormik.errors.password ? (
+            <div className="errors">{loginFormik.errors.password}</div>
+          ) : null}
           <Button
             type="submit"
             fullWidth
