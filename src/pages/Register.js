@@ -244,9 +244,7 @@ const Register = () => {
                 variant="outlined"
                 fullWidth
                 label="Your Name"
-                onChange={registerFormik.handleChange}
-                onBlur={registerFormik.handleBlur}
-                value={registerFormik.values.name}
+                {...registerFormik.getFieldProps("name")}
               />
               {registerFormik.touched.name && registerFormik.errors.name ? (
                 <div className="errors">{registerFormik.errors.name}</div>
@@ -261,9 +259,7 @@ const Register = () => {
                 type="email"
                 fullWidth
                 label="Email Address"
-                onChange={registerFormik.handleChange}
-                onBlur={registerFormik.handleBlur}
-                value={registerFormik.values.email}
+                {...registerFormik.getFieldProps("email")}
               />
               {registerFormik.touched.email && registerFormik.errors.email ? (
                 <div className="errors">{registerFormik.errors.email}</div>
@@ -276,9 +272,7 @@ const Register = () => {
                 fullWidth
                 label="Password"
                 type="password"
-                onChange={registerFormik.handleChange}
-                onBlur={registerFormik.handleBlur}
-                value={registerFormik.values.password}
+                {...registerFormik.getFieldProps("password")}
               />
               {registerFormik.touched.password &&
               registerFormik.errors.password ? (
@@ -292,9 +286,7 @@ const Register = () => {
                 variant="outlined"
                 fullWidth
                 label="Confirm Password"
-                onChange={registerFormik.handleChange}
-                onBlur={registerFormik.handleBlur}
-                value={registerFormik.values.password2}
+                {...registerFormik.getFieldProps("password2")}
               />
               {registerFormik.touched.password2 &&
               registerFormik.errors.password2 ? (

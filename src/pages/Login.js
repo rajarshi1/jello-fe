@@ -112,9 +112,7 @@ const Login = () => {
             label="Email Address"
             name="email"
             autoComplete="email"
-            onChange={loginFormik.handleChange}
-            onBlur={loginFormik.handleBlur}
-            value={loginFormik.values.email}
+            {...loginFormik.getFieldProps("email")}
           />
           {loginFormik.touched.email && loginFormik.errors.email ? (
             <div className="errors">{loginFormik.errors.email}</div>
@@ -129,9 +127,7 @@ const Login = () => {
             type="password"
             fullWidth
             label="Password"
-            onChange={loginFormik.handleChange}
-            onBlur={loginFormik.handleBlur}
-            value={loginFormik.values.password}
+            {...loginFormik.getFieldProps("password")}
           />
           {loginFormik.touched.password && loginFormik.errors.password ? (
             <div className="errors">{loginFormik.errors.password}</div>
