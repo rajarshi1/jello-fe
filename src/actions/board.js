@@ -27,6 +27,7 @@ import {
   COMPLETE_CHECKLIST_ITEM,
   DELETE_CHECKLIST_ITEM,
 } from './types';
+import setAuthToken from '../utils/setAuthToken';
 
 const config = {
   headers: {
@@ -39,7 +40,7 @@ export const getBoards = () => async (dispatch) => {
   console.log('hi from get board');
   try {
     dispatch({ type: CLEAR_BOARD });
-
+    setAuthToken();
     const res = await axios.get('http://localhost:5000/api/boards');
 
     dispatch({

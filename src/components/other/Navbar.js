@@ -23,6 +23,7 @@ const Navbar = () => {
   // }
 
   const handleUserLogout = (e) => {
+    dispatch(logout());
     try {
       const logout = firebase.auth().signOut();
       console.log(logout);
