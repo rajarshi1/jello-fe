@@ -126,7 +126,7 @@ export const renameBoard = (boardId, formData) => async (dispatch) => {
 // Get list
 export const getList = (id) => async (dispatch) => {
   try {
-    const res = await axios.get(`/api/lists/${id}`);
+    const res = await axios.get(`https://jello-1.herokuapp.com/api/lists/${id}`);
 
     dispatch({
       type: GET_LIST,
@@ -145,7 +145,7 @@ export const addList = (formData) => async (dispatch) => {
   try {
     const body = JSON.stringify(formData);
 
-    const res = await axios.post('/api/lists', body, config);
+    const res = await axios.post('https://jello-1.herokuapp.com/api/lists', body, config);
 
     dispatch({
       type: ADD_LIST,
