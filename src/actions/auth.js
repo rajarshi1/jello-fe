@@ -77,7 +77,7 @@ export const login = (email, password) => async (dispatch) => {
   const body = JSON.stringify({ email, password });
 
   try {
-    const res = await axios.post('api/auth/login', body, config);
+    const res = await axios.post('https://jello-1.herokuapp.com/api/auth/login', body, config);
 
     dispatch({
       type: LOGIN_SUCCESS,
