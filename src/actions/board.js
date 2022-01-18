@@ -58,6 +58,7 @@ export const getBoards = () => async (dispatch) => {
 // Get board
 export const getBoard = (id) => async (dispatch) => {
   try {
+    setAuthToken();
     const res = await axios.get(`https://jello-1.herokuapp.com/api/boards/${id}`);
 
     if (res) {
