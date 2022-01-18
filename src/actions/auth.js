@@ -18,7 +18,7 @@ export const loadUser = () => async (dispatch) => {
   }
 
   try {
-    const res = await axios.get('api/auth/logged-in-user');
+    const res = await axios.get('https://jello-1.herokuapp.com/api/auth/logged-in-user');
 
     dispatch({
       type: USER_LOADED,
@@ -44,7 +44,7 @@ export const register = ({ name, email, password }) => async (dispatch) => {
   const body = JSON.stringify({ name, email, password });
 
   try {
-    const res = await axios.post('/api/users', body, config);
+    const res = await axios.post('https://jello-1.herokuapp.com/api/auth/signup', body, config);
 
     dispatch({
       type: REGISTER_SUCCESS,
@@ -77,7 +77,7 @@ export const login = (email, password) => async (dispatch) => {
   const body = JSON.stringify({ email, password });
 
   try {
-    const res = await axios.post('api/auth/login', body, config);
+    const res = await axios.post('https://jello-1.herokuapp.com/api/auth/login', body, config);
 
     dispatch({
       type: LOGIN_SUCCESS,

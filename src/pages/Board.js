@@ -61,14 +61,14 @@ const Board = ({ match }) => {
   ) : (
     <div
       className='board-and-navbar'
-      // style={{
-      //   backgroundImage:
-      //     'url(' +
-      //     (board.backgroundURL
-      //       ? board.backgroundURL
-      //       : 'https://images.unsplash.com/photo-1598197748967-b4674cb3c266?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2689&q=80') +
-      //     ')',
-      // }}
+      style={{
+        backgroundImage:
+          'url(' +
+          (board.backgroundURL
+            ? board.backgroundURL
+            : 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80') +
+          ')',
+      }}
     >
       <Navbar />
       <section className='board'>

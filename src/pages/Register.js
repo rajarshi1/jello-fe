@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-// import { setAlert } from '../../actions/alert';
+import { setAlert } from '../actions/alert';
+import { register } from '../actions/auth';
 import axios from "axios";
 import Button from "@material-ui/core/Button";
 import { CssBaseline, Grid, TextField, Typography } from "@material-ui/core";
@@ -25,6 +26,8 @@ const auth = getAuth();
 
 const Register = () => {
   const { user, authIsReady, authDispatch } = useAuthContext();
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const dispatch = useDispatch();
 
   const classes = useStyles();
   const navigate = useNavigate();
@@ -195,11 +198,26 @@ const Register = () => {
   //   });
   // }
 
-  // function submit() {
-  //   console.log('submittttt');
-  //   loginwithEmail();
-  //   dataToMongo();
-  // }
+  const LoginWithEmail = async (e) => {
+    e.preventDefault();
+    console.log("testing");
+
+    if (password !== password2) {
+      dispatch(setAlert('Passwords do not match', 'error'));
+    } else {
+      dispatch(register({ name, email, password }));
+    }
+    
+    try {
+      const response = await projectAuth.createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      console.log(response, "response");
+      if (!response) {
+        throw new Error("Unable to sign up user");
+      }}
 
   // const loginwithEmail = ()=>{
   //   const auth = getAuth();
