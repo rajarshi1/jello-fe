@@ -19,6 +19,8 @@ const auth = getAuth();
 
 const Register = () => {
   const { user, authIsReady, authDispatch } = useAuthContext();
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const dispatch = useDispatch();
 
   const classes = useStyles();
   const navigate = useNavigate();
@@ -89,6 +91,12 @@ const Register = () => {
   const LoginWithEmail = async (e) => {
     e.preventDefault();
     console.log("testing");
+
+    if (password !== password2) {
+      dispatch(setAlert('Passwords do not match', 'error'));
+    } else {
+      dispatch(register({ name, email, password }));
+    }
     
     try {
       const response = await projectAuth.createUserWithEmailAndPassword(
