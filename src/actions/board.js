@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from './customAxios';
 import { setAlert } from './alert';
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -40,8 +40,8 @@ export const getBoards = () => async (dispatch) => {
   console.log('hi from get board');
   try {
     dispatch({ type: CLEAR_BOARD });
-    setAuthToken();
-    const res = await axios.get('https://jello-1.herokuapp.com/api/boards');
+    // setAuthToken();
+    const res = await axios.get('/boards');
 
     dispatch({
       type: GET_BOARDS,
@@ -100,7 +100,7 @@ export const addBoard = (formData, history) => async (dispatch) => {
     console.log(err);
     dispatch({
       type: BOARD_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      payload: { msg: err.response, status: err.response },
     });
   }
 };

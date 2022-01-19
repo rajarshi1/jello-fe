@@ -18,7 +18,7 @@ const Dashboard = () => {
   const navigate = useNavigate();
   console.log(user,isAuthenticated);
 
-  useSelector((state)=>console.log(state));
+ 
 
   // useEffect(() => {
   //   if (!!authIsReady && !user) {
@@ -28,7 +28,7 @@ const Dashboard = () => {
   
   useEffect(() => {
     dispatch(getBoards());
-  }, [dispatch]);
+  }, []);
   
   // console.log(user);
   

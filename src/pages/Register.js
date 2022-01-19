@@ -95,6 +95,7 @@ const Register = () => {
 
     if (password !== password2) {
       dispatch(setAlert('Passwords do not match', 'error'));
+      return;
     } else {
       dispatch(register({ name, email, password }));
     }
@@ -111,7 +112,7 @@ const Register = () => {
       }
 
       authDispatch({ type: "LOGIN", payload: response.user });
-      navigate("/dashboard");
+      // navigate("/dashboard");
     } catch (error) {
       console.log(error.message);
     }

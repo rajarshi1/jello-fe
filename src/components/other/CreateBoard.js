@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { addBoard } from '../../actions/board';
+import { addBoard, getBoards } from '../../actions/board';
 import { Modal, TextField, Button } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import useStyles from '../../utils/modalStyles';
@@ -11,13 +11,28 @@ const CreateBoard = ({ history }) => {
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState('');
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  useEffect(() => {
+    dispatch(getBoards());
+  }, []);
+  
+  const boards = useSelector((state) => state.board.boards);
+  const boardsName = boards.map((item) => item.title);
+  console.log(boards, boardsName );
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    dispatch(addBoard({ title }, history));
+    if(boardsName.includes(title)){
+      alert('A board with that name already exists, please use a different name');
+    }
+    else{
+      dispatch(addBoard({ title }, history));
+      setOpen(false);
+      setTitle('');
+    }
   };
 
-  useSelector((state) => console.log(state));
+  // useSelector((state) => console.log(state));
 
   const body = (
     <div className={`${classes.paper} ${classes.createBoardModal}`}>
