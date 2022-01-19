@@ -16,20 +16,21 @@ const Dashboard = () => {
   // const { user, authIsReady, authDispatch } = useAuthContext();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  console.log(user,isAuthenticated);
-
- 
-
+  
+  
+  
   // useEffect(() => {
-  //   if (!!authIsReady && !user) {
-  //     navigate("/login");
-  //   }
+    //   if (!!authIsReady && !user) {
+      //     navigate("/login");
+      //   }
+     
   // }, [user, authIsReady]);
   
   useEffect(() => {
     dispatch(getBoards());
-  }, []);
-  
+  }, [dispatch]);
+
+  console.log(user,isAuthenticated);
   // console.log(user);
   
   const boards = useSelector((state) => state.board.boards);
