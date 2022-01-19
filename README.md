@@ -1,6 +1,6 @@
-JELLO FRONT END 
+**JELLO FRONT END **
 
-Setup - 
+     Setup - 
 
 Clone the repository
 
