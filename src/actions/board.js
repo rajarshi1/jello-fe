@@ -1,4 +1,4 @@
-import axios from './customAxios';
+import axios from 'axios';
 import { setAlert } from './alert';
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -41,7 +41,7 @@ export const getBoards = () => async (dispatch) => {
   try {
     dispatch({ type: CLEAR_BOARD });
     // setAuthToken();
-    const res = await axios.get('/boards');
+    const res = await axios.get('https://jello-1.herokuapp.com/api/boards');
 
     dispatch({
       type: GET_BOARDS,
