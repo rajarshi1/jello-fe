@@ -20,11 +20,21 @@ const auth = getAuth();
 
 const Register = () => {
   const { user, authIsReady, authDispatch } = useAuthContext();
+  const [btnDisabled, setBtnDisabled] = useState(false)
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const loadStatus = useSelector((state) => state.auth.loading);
   const dispatch = useDispatch();
-
+  useSelector((state) => console.log(state));
+  console.log(loadStatus);
   const classes = useStyles();
   const navigate = useNavigate();
+
+  // if(loadStatus&&btnDisabled==false){
+  //   setBtnDisabled(false);
+  // }
+  // else{
+  //   setBtnDisabled(true);
+  // }
 
   const [formData, setFormData] = useState({
     name: "",
@@ -209,6 +219,7 @@ const Register = () => {
             variant="contained"
             color="primary"
             className="submit"
+            disabled={btnDisabled}
           >
             Sign Up
           </Button>
