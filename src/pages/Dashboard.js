@@ -11,11 +11,14 @@ import Navbar from '../components/other/Navbar';
 import CreateBoard from '../components/other/CreateBoard';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
+
 const Dashboard = () => {
   const { user, isAuthenticated } = useSelector((state) => state.auth);
   // const { user, authIsReady, authDispatch } = useAuthContext();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const boards = useSelector((state) => state.board.boards);
+  const loading = useSelector((state) => state.board.dashboardLoading);
   
   
   
@@ -28,13 +31,12 @@ const Dashboard = () => {
   
   useEffect(() => {
     dispatch(getBoards());
-  }, [dispatch]);
+  });
 
   console.log(user,isAuthenticated);
   // console.log(user);
   
-  const boards = useSelector((state) => state.board.boards);
-  const loading = useSelector((state) => state.board.dashboardLoading);
+  
 
   
  
