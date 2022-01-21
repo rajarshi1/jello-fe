@@ -20,6 +20,7 @@ import "firebase/compat/auth";
 import "firebase/compat/firestore";
 import { useAuthContext } from "../hooks/useAuthContext";
 import useStyles from '../utils/formStyles';
+import { useFormik } from "formik";
 
 const Login = () => {
   const classes = useStyles();
@@ -34,24 +35,16 @@ const Login = () => {
   });
   const { email, password } = formData;
 
-  useEffect(() => {
-    if (!!authIsReady && user) {
-      navigate("/dashboard");
-    }
-  }, [user, authIsReady]);
-
-  if (!authIsReady) {
-    return <p>Loading</p>;
-  }
+ 
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const onSubmit = async (e) => {
-    e.preventDefault();
-    dispatch(login(email, password));
+  const onSubmit = async (values) => {
+    // e.preventDefault();
+    dispatch(login(values.email, values.password));
     const auth = getAuth();
-    signInWithEmailAndPassword(auth, email, password)
+    signInWithEmailAndPassword(auth, values.email, values.password)
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
@@ -87,6 +80,45 @@ const Login = () => {
     })
   };
 
+   /** create LoginValidate to pass in formik object */
+   const LoginValidate = (values) => {
+    const errors = {};
+
+    if (!values.email) {
+      errors.email = "Email Required";
+    } else if (
+      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
+    ) {
+      errors.email = "Invalid email address";
+    }
+
+    if (!values.password) {
+      errors.password = "Password Required";
+    }
+    console.log(errors, "errors");
+    return errors;
+  };
+
+  /** create loginFormik object with useFormik to handle login form submission */
+  const loginFormik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    onSubmit: onSubmit,
+    validate: LoginValidate,
+  });
+
+  useEffect(() => {
+    if (!!authIsReady && user) {
+      navigate("/dashboard");
+    }
+  }, [user, authIsReady]);
+
+  if (!authIsReady) {
+    return <p>Loading</p>;
+  }
+
   return (
     <Container component='main' maxWidth='xs' className={classes.container}>
       <CssBaseline />
@@ -97,7 +129,7 @@ const Login = () => {
         <Typography component="h1" variant="h5">
           Login
         </Typography>
-        <form className="form" onSubmit={(e) => onSubmit(e)}>
+        <form className="form" onSubmit={loginFormik.handleSubmit}>
           <TextField
             variant="outlined"
             margin="normal"
@@ -106,10 +138,14 @@ const Login = () => {
             label="Email Address"
             name="email"
             autoComplete="email"
-            autoFocus
+            // autoFocus
             value={email}
-            onChange={(e) => onChange(e)}
+            // onChange={(e) => onChange(e)}
+            {...loginFormik.getFieldProps("email")}
           />
+          {loginFormik.touched.email && loginFormik.errors.email ? (
+            <div className="errors">{loginFormik.errors.email}</div>
+          ) : null}
           <TextField
             autoComplete="current-password"
             margin="normal"
@@ -119,10 +155,14 @@ const Login = () => {
             type="password"
             fullWidth
             label="Password"
-            autoFocus
+            // autoFocus
             value={password}
-            onChange={(e) => onChange(e)}
+            // onChange={(e) => onChange(e)}
+            {...loginFormik.getFieldProps("password")}
           />
+          {loginFormik.touched.password && loginFormik.errors.password ? (
+            <div className="errors">{loginFormik.errors.password}</div>
+          ) : null}
           <Button
             type="submit"
             fullWidth

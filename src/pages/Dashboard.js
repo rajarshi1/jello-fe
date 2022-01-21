@@ -30,6 +30,7 @@ const Dashboard = () => {
   // }, [user, authIsReady]);
   
   useEffect(() => {
+    // if(){}
     dispatch(getBoards());
   });
 
@@ -90,7 +91,7 @@ const Dashboard = () => {
       <section className='dashboard'>
         <h1>Welcome {user && user.email}</h1>
         <h2>Your Boards</h2>
-        {/* {loading && <CircularProgress className='dashboard-loading' />} */}
+        {loading && <CircularProgress className='dashboard-loading' />}
         <div className='boards'>
           {boards.map((board) => (
             <Link key={board._id} to={`/board/${board._id}`} className='board-card'>
