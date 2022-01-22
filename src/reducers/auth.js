@@ -12,7 +12,10 @@ export const initialState = {
   token: localStorage.getItem("token"),
   isAuthenticated: null,
   loading: true,
-  user: JSON.parse(localStorage.getItem("user")),
+  user:null,
+  // localStorage.getItem("user")
+  //   ? JSON.parse(localStorage.getItem("user"))
+  //   : null,
   authIsReady: false,
 };
 
