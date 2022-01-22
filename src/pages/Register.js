@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setAlert } from '../actions/alert';
-import { register } from '../actions/auth';
+import { setAlert } from "../actions/alert";
+import { register } from "../actions/auth";
 import axios from "axios";
 import Button from "@material-ui/core/Button";
 import { CssBaseline, Grid, TextField, Typography } from "@material-ui/core";
@@ -198,26 +198,30 @@ const Register = () => {
   //   });
   // }
 
-  const LoginWithEmail = async (e) => {
-    e.preventDefault();
-    console.log("testing");
+  // const LoginWithEmail = async (e) => {
+  //   e.preventDefault();
+  //   console.log("testing");
 
-    if (password !== password2) {
-      dispatch(setAlert('Passwords do not match', 'error'));
-    } else {
-      dispatch(register({ name, email, password }));
-    }
-    
-    try {
-      const response = await projectAuth.createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      console.log(response, "response");
-      if (!response) {
-        throw new Error("Unable to sign up user");
-      }}
+  //   if (password !== password2) {
+  //     dispatch(setAlert("Passwords do not match", "error"));
+  //   } else {
+  //     dispatch(register({ name, email, password }));
+  //   }
+
+  //   try {
+  //     const response = await projectAuth.createUserWithEmailAndPassword(
+  //       auth,
+  //       email,
+  //       password
+  //     );
+  //     console.log(response, "response");
+  //     if (!response) {
+  //       throw new Error("Unable to sign up user");
+  //     }
+  //   } catch (err) {
+  //     console.log("error");
+  //   }
+  // };
 
   // const loginwithEmail = ()=>{
   //   const auth = getAuth();

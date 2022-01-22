@@ -9,11 +9,7 @@ import {
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import firebase from "firebase/compat/app";
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
 import { useAuthContext } from "../hooks/useAuthContext";
@@ -23,6 +19,8 @@ import { useFormik } from "formik";
 
 const Login = () => {
   const { user, authIsReady, authDispatch } = useAuthContext();
+  console.log(user, "user in login");
+  console.log(authIsReady, "authIsReady in login");
   const navigate = useNavigate();
 
   /** login with email */
@@ -32,8 +30,10 @@ const Login = () => {
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
-        authDispatch({ type: "LOGIN", payload: user });
-        navigate("/dashboard");
+        console.log(user, "user in login with email");
+        authDispatch({ type: "LOGIN_SUCCESS", payload: user });
+        authDispatch({ type: "USER_LOADED", payload: user });
+        //navigate("/dashboard");
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -88,7 +88,11 @@ const Login = () => {
       .signInWithPopup(new firebase.auth.GoogleAuthProvider())
       .then((userCred) => {
         console.log(userCred);
-        authDispatch({ type: "LOGIN", payload: userCred.user });
+        authDispatch({ type: "LOGIN_SUCCESS", payload: userCred.user });
+        authDispatch({ type: "USER_LOADED", payload: userCred.user });
+      })
+      .catch((err) => {
+        authDispatch({ type: "LOGIN_FAIL", payload: err });
       });
   };
 

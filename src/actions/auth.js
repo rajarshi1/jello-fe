@@ -1,5 +1,5 @@
-import axios from 'axios';
-import { setAlert } from './alert';
+import axios from "axios";
+import { setAlert } from "./alert";
 import {
   REGISTER_SUCCESS,
   REGISTER_FAIL,
@@ -8,8 +8,8 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
-} from './types';
-import setAuthToken from '../utils/setAuthToken';
+} from "./types";
+import setAuthToken from "../utils/setAuthToken";
 
 // Load User
 export const loadUser = () => async (dispatch) => {
@@ -18,7 +18,9 @@ export const loadUser = () => async (dispatch) => {
   }
 
   try {
-    const res = await axios.get('https://jello-1.herokuapp.com/api/auth/logged-in-user');
+    const res = await axios.get(
+      "https://jello-1.herokuapp.com/api/auth/logged-in-user"
+    );
 
     dispatch({
       type: USER_LOADED,
@@ -34,50 +36,60 @@ export const loadUser = () => async (dispatch) => {
 };
 
 // Register User
-export const register = ({ name, email, password }) => async (dispatch) => {
-  const config = {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  };
+export const register =
+  ({ name, email, password }) =>
+  async (dispatch) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
 
-  const body = JSON.stringify({ name, email, password });
+    const body = JSON.stringify({ name, email, password });
 
-  try {
-    const res = await axios.post('https://jello-1.herokuapp.com/api/auth/signup', body, config);
+    try {
+      const res = await axios.post(
+        "https://jello-1.herokuapp.com/api/auth/signup",
+        body,
+        config
+      );
 
-    dispatch({
-      type: REGISTER_SUCCESS,
-      payload: res.data,
-    });
+      dispatch({
+        type: REGISTER_SUCCESS,
+        payload: res.data,
+      });
 
-    dispatch(loadUser());
-  } catch (err) {
-    const errors = err.response.data.errors;
+      dispatch(loadUser());
+    } catch (err) {
+      const errors = err.response.data.errors;
 
-    if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, 'error')));
+      if (errors) {
+        errors.forEach((error) => dispatch(setAlert(error.msg, "error")));
+      }
+      console.log(err);
+
+      dispatch({
+        type: REGISTER_FAIL,
+      });
     }
-    console.log(err);
-
-    dispatch({
-      type: REGISTER_FAIL,
-    });
-  }
-};
+  };
 
 // Login User
 export const login = (email, password) => async (dispatch) => {
   const config = {
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
   };
 
   const body = JSON.stringify({ email, password });
 
   try {
-    const res = await axios.post('https://jello-1.herokuapp.com/api/auth/login', body, config);
+    const res = await axios.post(
+      "https://jello-1.herokuapp.com/api/auth/login",
+      body,
+      config
+    );
 
     dispatch({
       type: LOGIN_SUCCESS,
@@ -90,7 +102,7 @@ export const login = (email, password) => async (dispatch) => {
     const errors = err.response.data.errors;
 
     if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, 'error')));
+      errors.forEach((error) => dispatch(setAlert(error.msg, "error")));
     }
     console.log(err);
 
