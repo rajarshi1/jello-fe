@@ -41,7 +41,7 @@ export const getBoards = () => async (dispatch) => {
   try {
     dispatch({ type: CLEAR_BOARD });
     // setAuthToken();
-    const res = await axios.get('/boards');
+    const res = await axios.get('api/boards');
 
     dispatch({
       type: GET_BOARDS,

@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 const customAxios = axios.create({
-    baseURL: `https://jello-1.herokuapp.com/api`
+    // baseURL: `https://jello-1.herokuapp.com/api`
+    baseURL: `http://localhost:5000`
 });
 
 // Step-2: Create request, response & error handlers

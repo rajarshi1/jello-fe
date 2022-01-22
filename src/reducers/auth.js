@@ -8,45 +8,70 @@ import {
     LOGOUT,
   } from '../actions/types';
   
-  const initialState = {
-    token: localStorage.getItem('token'),
+  export const initialState = {
+    token: localStorage.getItem("token"),
     isAuthenticated: null,
     loading: true,
-    user: null,
+    user:null,
+    // localStorage.getItem("user")
+    //   ? JSON.parse(localStorage.getItem("user"))
+    //   : null,
+    authIsReady: false,
   };
   
-  export default function (state = initialState, action) {
+  export function reducer(state = initialState, action) {
     const { type, payload } = action;
-  
+    console.log(type, "type");
+    console.log(payload, "payload");
     switch (type) {
       case USER_LOADED:
-        localStorage.setItem('user', payload);
+        if (payload) {
+          localStorage.setItem("user", JSON.stringify(payload));
+        }
         return {
           ...state,
           isAuthenticated: true,
+          authIsReady: true,
           loading: false,
           user: payload,
         };
       case REGISTER_SUCCESS:
       case LOGIN_SUCCESS:
-        localStorage.setItem('token', payload.token);
+        console.log("sdddfssf");
+        if (payload) {
+          localStorage.setItem("token", payload.accessToken);
+        }
         return {
           ...state,
           ...payload,
           isAuthenticated: true,
+          authIsReady: true,
           loading: false,
         };
       case REGISTER_FAIL:
       case AUTH_ERROR:
       case LOGIN_FAIL:
       case LOGOUT:
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
         return {
           ...state,
           token: null,
-          user:null,
+          user: null,
           isAuthenticated: false,
+          authIsReady: true,
+          loading: false,
+        };
+      case "AUTH_IS_READY":
+        if (payload) {
+          localStorage.setItem("token", payload.accessToken);
+        }
+        return {
+          ...state,
+          ...payload,
+          user: payload,
+          authIsReady: true,
+          isAuthenticated: true,
           loading: false,
         };
       default:
