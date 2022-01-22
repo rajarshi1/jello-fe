@@ -18,7 +18,7 @@ const CreateBoard = ({ history }) => {
   
   const boards = useSelector((state) => state.board.boards);
   const boardsName = boards.map((item) => item.title);
-  console.log(boards, boardsName );
+  // console.log(boards, boardsName );
 
   const onSubmit = async (e) => {
     e.preventDefault();

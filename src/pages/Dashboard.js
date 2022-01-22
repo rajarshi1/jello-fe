@@ -32,7 +32,7 @@ const Dashboard = () => {
   useEffect(() => {
     // if(){}
     dispatch(getBoards());
-  });
+  },[]);
 
   console.log(user,isAuthenticated);
   // console.log(user);

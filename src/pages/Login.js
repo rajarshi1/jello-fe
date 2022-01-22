@@ -26,7 +26,8 @@ const Login = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const { user, authIsReady, authDispatch } = useAuthContext();
+  // const { user, authIsReady, authDispatch } = useAuthContext();
+  const { user, isAuthenticated } = useSelector((state) => state.auth);
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -44,20 +45,20 @@ const Login = () => {
     // e.preventDefault();
     dispatch(login(values.email, values.password));
     const auth = getAuth();
-    signInWithEmailAndPassword(auth, values.email, values.password)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        console.log(user);
-        authDispatch({ type: "LOGIN", payload: user });
-        navigate("/dashboard");
-        // ...
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(error);
-      });
+    // signInWithEmailAndPassword(auth, values.email, values.password)
+    //   .then((userCredential) => {
+    //     // Signed in
+    //     const user = userCredential.user;
+    //     console.log(user);
+    //     // authDispatch({ type: "LOGIN", payload: user });
+    //     navigate("/dashboard");
+    //     // ...
+    //   })
+    //   .catch((error) => {
+    //     const errorCode = error.code;
+    //     const errorMessage = error.message;
+    //     console.log(error);
+    //   });
   };
 
   const loginwithGoogle = () => {
@@ -66,7 +67,7 @@ const Login = () => {
       .signInWithPopup(new firebase.auth.GoogleAuthProvider())
       .then((userCred) => {
         console.log(userCred);
-        authDispatch({ type: "LOGIN", payload: userCred.user });
+        // authDispatch({ type: "LOGIN", payload: userCred.user });
       });
   };
 
@@ -95,7 +96,7 @@ const Login = () => {
     if (!values.password) {
       errors.password = "Password Required";
     }
-    console.log(errors, "errors");
+    // console.log(errors, "errors");
     return errors;
   };
 
@@ -110,14 +111,16 @@ const Login = () => {
   });
 
   useEffect(() => {
-    if (!!authIsReady && user) {
+    if (!!isAuthenticated && user) {
+      console.log("login.js");
       navigate("/dashboard");
     }
-  }, [user, authIsReady]);
+  }, [user, isAuthenticated]);
 
-  if (!authIsReady) {
-    return <p>Loading</p>;
-  }
+
+  // if (!isAuthenticated) {
+  //   return <p>Loading</p>;
+  // }
 
   return (
     <Container component='main' maxWidth='xs' className={classes.container}>
