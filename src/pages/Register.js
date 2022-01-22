@@ -14,17 +14,28 @@ import "firebase/compat/firestore";
 import useStyles from "../utils/formStyles";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { projectAuth } from "../config/firebase-config";
+import { useFormik } from "formik";
 
 const auth = getAuth();
 
 
 const Register = () => {
   const { user, authIsReady, authDispatch } = useAuthContext();
+  const [btnDisabled, setBtnDisabled] = useState(false)
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const loadStatus = useSelector((state) => state.auth.loading);
   const dispatch = useDispatch();
-
+  useSelector((state) => console.log(state));
+  console.log(loadStatus);
   const classes = useStyles();
   const navigate = useNavigate();
+
+  // if(loadStatus&&btnDisabled==false){
+  //   setBtnDisabled(false);
+  // }
+  // else{
+  //   setBtnDisabled(true);
+  // }
 
   const [formData, setFormData] = useState({
     name: "",
@@ -34,6 +45,81 @@ const Register = () => {
   });
 
   const { name, email, password, password2 } = formData;
+
+  const LoginWithEmail = async () => {
+    // e.preventDefault();
+    console.log("testing");
+
+    if (password !== password2) {
+      dispatch(setAlert('Passwords do not match', 'error'));
+      return;
+    } else {
+      dispatch(register({ name, email, password }));
+    }
+    
+    try {
+      const response = await projectAuth.createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      console.log(response, "response");
+      if (!response) {
+        throw new Error("Unable to sign up user");
+      }
+
+      authDispatch({ type: "LOGIN", payload: response.user });
+      // navigate("/dashboard");
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  /** create LoginValidate to pass in formik object */
+  const registerValidate = (values) => {
+    const errors = {};
+
+    /** check for email */
+    if (!values.name) {
+      errors.name = "Name Required";
+    }
+
+    /** check for email */
+    if (!values.email) {
+      errors.email = "Email Required";
+    } else if (
+      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
+    ) {
+      errors.email = "Invalid email address";
+    }
+
+    /** check for password value */
+    if (!values.password) {
+      errors.password = "Password Required";
+    } else if (values.password.length < 8) {
+      errors.password = "Password length should be 8 digit atleast";
+    }
+
+    /** checking for password2 and matching with password */
+    if (!values.password2) {
+      errors.password2 = "Confirm Password Required";
+    } else if (values.password !== values.password2) {
+      errors.password2 = "Password and Confirm password didn't match";
+    }
+
+    console.log(errors, "errors");
+    return errors;
+  };
+
+  /** create loginFormik object with useFormik to handle login form submission */
+  const registerFormik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    onSubmit: LoginWithEmail,
+    validate: registerValidate,
+  });
 
   useEffect(() => {
     if (!!authIsReady && user) {
@@ -89,34 +175,7 @@ const Register = () => {
   // }
 
 
-  const LoginWithEmail = async (e) => {
-    e.preventDefault();
-    console.log("testing");
-
-    if (password !== password2) {
-      dispatch(setAlert('Passwords do not match', 'error'));
-      return;
-    } else {
-      dispatch(register({ name, email, password }));
-    }
-    
-    try {
-      const response = await projectAuth.createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      console.log(response, "response");
-      if (!response) {
-        throw new Error("Unable to sign up user");
-      }
-
-      authDispatch({ type: "LOGIN", payload: response.user });
-      // navigate("/dashboard");
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
+  
 
  
 
@@ -147,7 +206,7 @@ const Register = () => {
           Sign up
         </Typography>
         {/* <form className="form" onSubmit={(e) => onSubmit(e)}> */}
-        <form className="form" onSubmit={LoginWithEmail} method="POST">
+        <form className="form"  onSubmit={registerFormik.handleSubmit} method="POST">
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
@@ -157,10 +216,14 @@ const Register = () => {
                 required
                 fullWidth
                 label="Your Name"
-                autoFocus
+                // autoFocus
                 value={name}
-                onChange={(e) => onChange(e)}
+                // onChange={(e) => onChange(e)}
+                {...registerFormik.getFieldProps("name")}
               />
+              {registerFormik.touched.name && registerFormik.errors.name ? (
+                <div className="errors">{registerFormik.errors.name}</div>
+              ) : null}
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -171,10 +234,14 @@ const Register = () => {
                 type="email"
                 fullWidth
                 label="Email Address"
-                autoFocus
+                // autoFocus
                 value={email}
-                onChange={(e) => onChange(e)}
+                // onChange={(e) => onChange(e)}
+                {...registerFormik.getFieldProps("email")}
               />
+              {registerFormik.touched.email && registerFormik.errors.email ? (
+                <div className="errors">{registerFormik.errors.email}</div>
+              ) : null}
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -184,10 +251,15 @@ const Register = () => {
                 fullWidth
                 label="Password"
                 type="password"
-                autoFocus
+                // autoFocus
                 value={password}
-                onChange={(e) => onChange(e)}
+                // onChange={(e) => onChange(e)}
+                {...registerFormik.getFieldProps("password")}
               />
+               {registerFormik.touched.password &&
+              registerFormik.errors.password ? (
+                <div className="errors">{registerFormik.errors.password}</div>
+              ) : null}
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -197,10 +269,15 @@ const Register = () => {
                 required
                 fullWidth
                 label="Confirm Password"
-                autoFocus
+                // autoFocus
                 value={password2}
-                onChange={(e) => onChange(e)}
+                // onChange={(e) => onChange(e)}
+                {...registerFormik.getFieldProps("password2")}
               />
+              {registerFormik.touched.password2 &&
+              registerFormik.errors.password2 ? (
+                <div className="errors">{registerFormik.errors.password2}</div>
+              ) : null}
             </Grid>
           </Grid>
           <Button
@@ -209,6 +286,7 @@ const Register = () => {
             variant="contained"
             color="primary"
             className="submit"
+            disabled={btnDisabled}
           >
             Sign Up
           </Button>

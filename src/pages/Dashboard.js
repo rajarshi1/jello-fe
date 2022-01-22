@@ -11,29 +11,33 @@ import Navbar from '../components/other/Navbar';
 import CreateBoard from '../components/other/CreateBoard';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
+
 const Dashboard = () => {
   const { user, isAuthenticated } = useSelector((state) => state.auth);
   // const { user, authIsReady, authDispatch } = useAuthContext();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  console.log(user,isAuthenticated);
-
- 
-
+  const boards = useSelector((state) => state.board.boards);
+  const loading = useSelector((state) => state.board.dashboardLoading);
+  
+  
+  
   // useEffect(() => {
-  //   if (!!authIsReady && !user) {
-  //     navigate("/login");
-  //   }
+    //   if (!!authIsReady && !user) {
+      //     navigate("/login");
+      //   }
+     
   // }, [user, authIsReady]);
   
   useEffect(() => {
+    // if(){}
     dispatch(getBoards());
-  }, []);
-  
+  },[]);
+
+  console.log(user,isAuthenticated);
   // console.log(user);
   
-  const boards = useSelector((state) => state.board.boards);
-  const loading = useSelector((state) => state.board.dashboardLoading);
+  
 
   
  
@@ -87,7 +91,7 @@ const Dashboard = () => {
       <section className='dashboard'>
         <h1>Welcome {user && user.email}</h1>
         <h2>Your Boards</h2>
-        {/* {loading && <CircularProgress className='dashboard-loading' />} */}
+        {loading && <CircularProgress className='dashboard-loading' />}
         <div className='boards'>
           { boards && boards.map((board) => (
             <Link key={board._id} to={`/board/${board._id}`} className='board-card'>

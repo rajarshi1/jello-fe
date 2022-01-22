@@ -448,3 +448,10 @@ body {
 .submit {
   margin-top: 5px !important;
 }
+
+.errors {
+  color: #d8000c;
+  background-color: #ffbaba;
+  border-radius: 5px;
+  padding: 5px;
+}
