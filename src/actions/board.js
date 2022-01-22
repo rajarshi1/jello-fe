@@ -37,11 +37,20 @@ const config = {
 
 // Get boards
 export const getBoards = () => async (dispatch) => {
-  console.log('hi from get board');
+  // const config = {
+  //   headers: {
+  //     'Authorization':'eyJhbGciOiJSUzI1NiIsImtpZCI6IjQwMTU0NmJkMWRhMzA0ZDc2NGNmZWUzYTJhZTVjZDBlNGY2ZjgyN2IiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vamVsbG8tYjgzNjIiLCJhdWQiOiJqZWxsby1iODM2MiIsImF1dGhfdGltZSI6MTY0Mjg0MTEzMSwidXNlcl9pZCI6InNrbm1KQ2FGaVBSa3FKaDNkN21NRTk4MDUxUzIiLCJzdWIiOiJza25tSkNhRmlQUmtxSmgzZDdtTUU5ODA1MVMyIiwiaWF0IjoxNjQyODQxMTMxLCJleHAiOjE2NDI4NDQ3MzEsImVtYWlsIjoiZ2hvc2hhbC5yYWphcnNoaUBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsiZ2hvc2hhbC5yYWphcnNoaUBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.clpgcPSvfWT-LmISzZkc2tDGh5Gf_UoxR1qrc_M-Vk1dq8RuGesREMdPc1JE2lpCIlzSywDMiYW_7pVZAyEanf5qA6G4yC99rNS6skVdZmM9PUgC9xSyMrnOTuWMcaJy9jRa8zPzeo--NzgcswLm0odM76I9TR5Ae_Vz-GD5YMvwIEHOYCMccGcTbXuZZEf7VZj2IjOE3wdxU0zBOQ10sgcqXKbmoOygqUono7ugswnbp3LuNpMwIr6rkT74PmE2Jop4K1egxLb9U_Mzm1CgS8qpelpUBWsEHlfm8Cq-8lOXK69jnmH0FqHn6JegIBVgYbibxGHg8CY178GlGP2u4A'
+  //   },
+  // };
+  console.log('hi from get board',config);
   try {
     dispatch({ type: CLEAR_BOARD });
     setAuthToken();
     const res = await axios.get('https://jello-1.herokuapp.com/api/boards');
+    // const res = await axios.get('http://localhost:5000/api/boards',{headers: {
+    //   'Authorization':"eyJhbGciOiJSUzI1NiIsImtpZCI6IjQwMTU0NmJkMWRhMzA0ZDc2NGNmZWUzYTJhZTVjZDBlNGY2ZjgyN2IiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vamVsbG8tYjgzNjIiLCJhdWQiOiJqZWxsby1iODM2MiIsImF1dGhfdGltZSI6MTY0Mjg0NzAwMiwidXNlcl9pZCI6InNrbm1KQ2FGaVBSa3FKaDNkN21NRTk4MDUxUzIiLCJzdWIiOiJza25tSkNhRmlQUmtxSmgzZDdtTUU5ODA1MVMyIiwiaWF0IjoxNjQyODQ3MDAyLCJleHAiOjE2NDI4NTA2MDIsImVtYWlsIjoiZ2hvc2hhbC5yYWphcnNoaUBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsiZ2hvc2hhbC5yYWphcnNoaUBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.goSQYsUrFd6_nwXhHlQoImiNtGNG_C3NBK_CUVatElyVNfO41v8fFw7eXEaFcu_0lCeBfRSLnV92ye8EThMZzpQAk-JRfyeRK5gy2PrBs5oD6Hlck0Iasz7JBB1odNWor97Zym6NUrBtHyLIzz-Q1I-AK7kErxyh9Wr7AWwC0Le7tfk4OswtMHTCcd2rZXF05d62w_bsh1vjVkUDeUqkQN_s8WaMZRoOZlFyvlq5VEBB4M39xaVf21Vpz80fyTReR2NgWPcQ0_qu6RZaiH1gTSjI_3Wu3uUqsVPbQaajnWDfco-cd57P2QvX6WRIS9IZc6OAkNgQlUhWfy8Kkh3EVA"
+    // }
+    // });
 
     dispatch({
       type: GET_BOARDS,
