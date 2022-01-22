@@ -41,7 +41,14 @@ export const getBoards = () => async (dispatch) => {
   try {
     dispatch({ type: CLEAR_BOARD });
     setAuthToken();
-    const res = await axios.get('https://jello-1.herokuapp.com/api/boards');
+    // const res = await axios.get('https://jello-1.herokuapp.com/api/boards');
+    const res = await axios.get('http://localhost:5000/api/boards',{headers: {
+      // 'Authorization': localStorage.getItem('token')
+      'Authorization': 'eyJhbGciOiJSUzI1NiIsImtpZCI6IjQwMTU0NmJkMWRhMzA0ZDc2NGNmZWUzYTJhZTVjZDBlNGY2ZjgyN2IiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vamVsbG8tYjgzNjIiLCJhdWQiOiJqZWxsby1iODM2MiIsImF1dGhfdGltZSI6MTY0Mjg0OTE5MCwidXNlcl9pZCI6InNrbm1KQ2FGaVBSa3FKaDNkN21NRTk4MDUxUzIiLCJzdWIiOiJza25tSkNhRmlQUmtxSmgzZDdtTUU5ODA1MVMyIiwiaWF0IjoxNjQyODU4NTAzLCJleHAiOjE2NDI4NjIxMDMsImVtYWlsIjoiZ2hvc2hhbC5yYWphcnNoaUBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsiZ2hvc2hhbC5yYWphcnNoaUBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.YRXfJSS47_ABr6DmSnP2qBJkjqGfLvwKI2axms1ycrJ2MiRB2jlBUBKqMjfC13BjqqXmcdzyhqjoTU-au6xdzsJvlQHXm6RS2NpL-J4XOkt0vLQmSEaMTukAZ8sYJWUhuegvIvOR1DzWWUEfp1Dq3pxFGMvIIthNogRDfVfeF2ANAUrwHWnkvudK_r5TiLe0UHMUquiHnW6Lat59AY2Fb8vgtSqzDombb9Xt2JiZVpuRUz67RGXkwyTLsAx9A_LrUTJGnbjyk1QpFMJ86NQbP24Iu_mpB_7y6_qfq9dLuLgxamrmNv5PA1wJ2BqFh8m9V_vzsgBp2XAV119m3UqUUQ'
+    }
+    });
+
+    console.log(res);
 
     dispatch({
       type: GET_BOARDS,

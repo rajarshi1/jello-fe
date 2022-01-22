@@ -12,7 +12,7 @@ import {
     token: localStorage.getItem("token"),
     isAuthenticated: null,
     loading: true,
-    user:null,
+    user: null,
     // localStorage.getItem("user")
     //   ? JSON.parse(localStorage.getItem("user"))
     //   : null,

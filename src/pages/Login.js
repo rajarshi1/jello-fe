@@ -26,8 +26,8 @@ const Login = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  // const { user, authIsReady, authDispatch } = useAuthContext();
-  const { user, isAuthenticated } = useSelector((state) => state.auth);
+  const { user, authIsReady:isAuthenticated, authDispatch } = useAuthContext();
+  // const { user, isAuthenticated } = useSelector((state) => state.auth);
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -43,22 +43,23 @@ const Login = () => {
 
   const onSubmit = async (values) => {
     // e.preventDefault();
-    dispatch(login(values.email, values.password));
+    // dispatch(login(values.email, values.password));
     const auth = getAuth();
-    // signInWithEmailAndPassword(auth, values.email, values.password)
-    //   .then((userCredential) => {
-    //     // Signed in
-    //     const user = userCredential.user;
-    //     console.log(user);
-    //     // authDispatch({ type: "LOGIN", payload: user });
-    //     navigate("/dashboard");
-    //     // ...
-    //   })
-    //   .catch((error) => {
-    //     const errorCode = error.code;
-    //     const errorMessage = error.message;
-    //     console.log(error);
-    //   });
+    signInWithEmailAndPassword(auth, values.email, values.password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        console.log(user);
+        authDispatch({ type: "LOGIN_SUCCESS", payload: user });
+        authDispatch({type:"USER_LOADED", payload:user });
+        navigate("/dashboard");
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(error);
+      });
   };
 
   const loginwithGoogle = () => {
