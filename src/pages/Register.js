@@ -8,7 +8,11 @@ import { CssBaseline, Grid, TextField, Typography } from "@material-ui/core";
 import Container from "@material-ui/core/Container";
 import { Link, useNavigate } from "react-router-dom";
 import firebase from "firebase/compat/app";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
 import useStyles from "../utils/formStyles";
@@ -37,42 +41,47 @@ const Register = () => {
   //   setBtnDisabled(true);
   // }
 
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    password: "",
-    password2: "",
-  });
+  // const [formData, setFormData] = useState({
+  //   name: "",
+  //   email: "",
+  //   password: "",
+  //   password2: "",
+  // });
 
-  const { name, email, password, password2 } = formData;
+  // const { name, email, password, password2 } = formData;
 
-  const LoginWithEmail = async () => {
+  const LoginWithEmail = async (values) => {
     // e.preventDefault();
-    console.log("testing");
+    console.log(values);
 
-    if (password !== password2) {
+    if (values.password !== values.password2) {
       dispatch(setAlert('Passwords do not match', 'error'));
       return;
     } else {
-      dispatch(register({ name, email, password }));
+      dispatch(register({ name:values.name, email:values.email, password:values.password }));
     }
     
     try {
-      const response = await projectAuth.createUserWithEmailAndPassword(
+      const response = await createUserWithEmailAndPassword(
         auth,
-        email,
-        password
+        values.email,
+        values.password
       );
       console.log(response, "response");
       if (!response) {
         throw new Error("Unable to sign up user");
       }
 
-      authDispatch({ type: "LOGIN", payload: response.user });
+      //add display name to user
+      await updateProfile(auth.currentUser, { displayName: values.name });
+
+      authDispatch({ type: "LOGIN_SUCCESS", payload: response.user });
+      authDispatch({ type: "USER_LOADED", payload: response.user });
       // navigate("/dashboard");
     } catch (error) {
       console.log(error.message);
     }
+    
   };
 
   /** create LoginValidate to pass in formik object */
@@ -114,8 +123,10 @@ const Register = () => {
   /** create loginFormik object with useFormik to handle login form submission */
   const registerFormik = useFormik({
     initialValues: {
+      name:"",
       email: "",
       password: "",
+      password2:"",
     },
     onSubmit: LoginWithEmail,
     validate: registerValidate,
@@ -141,6 +152,11 @@ const Register = () => {
           userCred.additionalUserInfo.profile.email,
           userCred.additionalUserInfo.profile.name
         );
+
+        //add display name to user
+        updateProfile(auth.currentUser, { displayName: userCred.additionalUserInfo.profile.name });
+
+
         axios
           .post("http://localhost:5000/api/auth/signup", {
             name: `${userCred.additionalUserInfo.profile.name}`,
@@ -153,20 +169,6 @@ const Register = () => {
           .catch(function (error) {
             console.log(error);
           });
-        firebase
-          .auth()
-          .createUserWithEmailAndPassword(auth, email, password)
-          .then((userCred) => {
-            authDispatch({ type: "LOGIN", payload: userCred.user });
-            console.log(userCred.user);
-            navigate("/dashboard");
-          })
-          .catch((error) => {
-            console.log(error.code, error.message);
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            // ..
-          });
       });
   };
 
@@ -177,23 +179,20 @@ const Register = () => {
 
   
 
- 
 
-  const onChange = (e) =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
 
   // const dispatch = useDispatch();
 
-  const onSubmit = async (e) => {
-    e.preventDefault();
-    if (password !== password2) {
-      // dispatch(setAlert('Passwords do not match', 'error'));
-      console.log("passwords dont match");
-    } else {
-      // dispatch(register({ name, email, password }));
-      console.log("hi", name, email, password);
-    }
-  };
+  // const onSubmit = async (e) => {
+  //   e.preventDefault();
+  //   if (password !== password2) {
+  //     // dispatch(setAlert('Passwords do not match', 'error'));
+  //     console.log("passwords dont match");
+  //   } else {
+  //     // dispatch(register({ name, email, password }));
+  //     console.log("hi", name, email, password);
+  //   }
+  // };
 
   return (
     <Container component="main" maxWidth="xs" className={classes.container}>
@@ -217,7 +216,7 @@ const Register = () => {
                 fullWidth
                 label="Your Name"
                 // autoFocus
-                value={name}
+                // value={name}
                 // onChange={(e) => onChange(e)}
                 {...registerFormik.getFieldProps("name")}
               />
@@ -235,7 +234,7 @@ const Register = () => {
                 fullWidth
                 label="Email Address"
                 // autoFocus
-                value={email}
+                // value={email}
                 // onChange={(e) => onChange(e)}
                 {...registerFormik.getFieldProps("email")}
               />
@@ -252,7 +251,7 @@ const Register = () => {
                 label="Password"
                 type="password"
                 // autoFocus
-                value={password}
+                // value={password}
                 // onChange={(e) => onChange(e)}
                 {...registerFormik.getFieldProps("password")}
               />
@@ -270,7 +269,7 @@ const Register = () => {
                 fullWidth
                 label="Confirm Password"
                 // autoFocus
-                value={password2}
+                // value={password2}
                 // onChange={(e) => onChange(e)}
                 {...registerFormik.getFieldProps("password2")}
               />

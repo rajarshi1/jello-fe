@@ -11,6 +11,8 @@ import {
 } from './types';
 import setAuthToken from '../utils/setAuthToken';
 
+const url = 'http://localhost:5000'
+
 // Load User
 export const loadUser = () => async (dispatch) => {
   if (localStorage.token) {
@@ -18,7 +20,7 @@ export const loadUser = () => async (dispatch) => {
   }
 
   try {
-    const res = await axios.get('https://jello-1.herokuapp.com/api/auth/logged-in-user');
+    const res = await axios.get(`${url}/api/auth/logged-in-user`);
 
     dispatch({
       type: USER_LOADED,

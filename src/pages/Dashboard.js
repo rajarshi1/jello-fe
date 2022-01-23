@@ -35,7 +35,7 @@ const Dashboard = () => {
   },[]);
 
   console.log(user,isAuthenticated);
-  // console.log(user);
+  console.log(boards);
   
   
 

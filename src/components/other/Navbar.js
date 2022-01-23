@@ -7,11 +7,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../../actions/auth';
 
 const Navbar = () => {
-  // const { user, authIsReady, authDispatch } = useAuthContext();
-  const { user, isAuthenticated:authIsReady } = useSelector((state) => state.auth);
+  const { user, authIsReady, authDispatch } = useAuthContext();
+  // const { user, isAuthenticated:authIsReady } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  console.log(authIsReady, user);
   useEffect(() => {
     if (!!authIsReady && !user) {
       navigate("/login");
@@ -30,7 +30,7 @@ const Navbar = () => {
       if (!logout) {
         throw new Error("Unable to logout");
       }
-      // authDispatch({ type: "LOGOUT" });
+      authDispatch({ type: "LOGOUT" });
       navigate("/login");
     } catch (error) {
       console.log(error);
