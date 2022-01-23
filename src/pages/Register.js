@@ -30,7 +30,7 @@ const Register = () => {
   const loadStatus = useSelector((state) => state.auth.loading);
   const dispatch = useDispatch();
   useSelector((state) => console.log(state));
-  console.log(loadStatus);
+  // console.log(loadStatus);
   const classes = useStyles();
   const navigate = useNavigate();
 
@@ -79,7 +79,10 @@ const Register = () => {
       authDispatch({ type: "USER_LOADED", payload: response.user });
       // navigate("/dashboard");
     } catch (error) {
-      console.log(error.message);
+      // console.log(error.message);
+      if (error.message=='Firebase: Error (auth/email-already-in-use).'){
+        alert('EMAIL ALREADY IN USE')
+      }
     }
     
   };

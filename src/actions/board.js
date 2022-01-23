@@ -29,7 +29,7 @@ import {
 } from './types';
 import setAuthToken from '../utils/setAuthToken';
 
-const url = 'http://localhost:5000'
+const url = 'https://jello-2.herokuapp.com'
 
 const config = {
   headers: {

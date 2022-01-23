@@ -34,8 +34,8 @@ const Dashboard = () => {
     dispatch(getBoards());
   },[]);
 
-  console.log(user,isAuthenticated);
-  console.log(boards);
+  // console.log(user,isAuthenticated);
+  // console.log(boards);
   
   
 
