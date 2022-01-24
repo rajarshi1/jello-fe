@@ -26,7 +26,7 @@ const Board = ({ match }) => {
   },[params]);
 
   useEffect(() => {
-    if (board?.title) document.title = board.title + ' | TrelloClone';
+    if (board?.title) document.title = board.title + ' | Jello';
   }, [board?.title]);
 
 //   if (!isAuthenticated) {
