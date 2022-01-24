@@ -11,7 +11,7 @@ const Navbar = () => {
   // const { user, isAuthenticated:authIsReady } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  console.log(authIsReady, user);
+  
   useEffect(() => {
     if (!!authIsReady && !user) {
       navigate("/login");
@@ -26,7 +26,7 @@ const Navbar = () => {
     dispatch(logout());
     try {
       const logout = firebase.auth().signOut();
-      console.log(logout);
+     
       if (!logout) {
         throw new Error("Unable to logout");
       }

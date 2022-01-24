@@ -39,12 +39,12 @@ const config = {
 
 // Get boards
 export const getBoards = () => async (dispatch) => {
-  console.log('hi from get board');
+ 
   try {
     dispatch({ type: CLEAR_BOARD });
     setAuthToken();
-    const x = localStorage.getItem('token');
-    console.log(x);
+    
+    
     // const res = await axios.get('https://jello-1.herokuapp.com/api/boards');
     const res = await axios.get(`${url}/api/boards`
     //   ,{headers: {
@@ -54,7 +54,7 @@ export const getBoards = () => async (dispatch) => {
     // }
     );
 
-    console.log(res);
+   
 
     dispatch({
       type: GET_BOARDS,
@@ -100,7 +100,7 @@ export const getBoard = (id) => async (dispatch) => {
 
 // Add board
 export const addBoard = (formData, history) => async (dispatch) => {
-  console.log('hi from add board');
+ 
   try {
     const body = JSON.stringify(formData);
 

@@ -21,8 +21,7 @@ import {
   
   export function reducer(state = initialState, action) {
     const { type, payload } = action;
-    console.log(type, "type");
-    console.log(payload, "payload");
+    
     switch (type) {
       case USER_LOADED:
         if (payload) {
@@ -37,7 +36,7 @@ import {
         };
       case REGISTER_SUCCESS:
       case LOGIN_SUCCESS:
-        console.log("sdddfssf");
+        
         if (payload) {
           localStorage.setItem("token", payload.accessToken);
         }

@@ -49,7 +49,7 @@ const Login = () => {
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
-        console.log(user);
+        
         authDispatch({ type: "LOGIN_SUCCESS", payload: user });
         authDispatch({type:"USER_LOADED", payload:user });
         navigate("/dashboard");
@@ -58,7 +58,7 @@ const Login = () => {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.log(error);
+       
       });
   };
 
@@ -67,7 +67,7 @@ const Login = () => {
       .auth()
       .signInWithPopup(new firebase.auth.GoogleAuthProvider())
       .then((userCred) => {
-        console.log(userCred);
+      
         // authDispatch({ type: "LOGIN", payload: userCred.user });
       });
   };
@@ -113,7 +113,7 @@ const Login = () => {
 
   useEffect(() => {
     if (!!isAuthenticated && user) {
-      console.log("login.js");
+    
       navigate("/dashboard");
     }
   }, [user, isAuthenticated]);

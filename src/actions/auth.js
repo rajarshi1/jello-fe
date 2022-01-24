@@ -26,7 +26,7 @@ export const loadUser = () => async (dispatch) => {
       type: USER_LOADED,
       payload: res.data,
     });
-    console.log(res);
+    // console.log(res);
   } catch (err) {
     dispatch({
       type: AUTH_ERROR,
@@ -43,7 +43,7 @@ export const register = ({ name, email, password }) => async (dispatch) => {
     },
   };
   const body = JSON.stringify({ name, email, password });
-  console.log(name,email,password,body);
+  // console.log(name,email,password,body);
 
   try {
     const res = await axios.post(`${url}/api/auth/signup`, body, config);
@@ -87,7 +87,7 @@ export const login = (email, password) => async (dispatch) => {
     });
 
     dispatch(loadUser());
-    console.log(res);
+    // console.log(res);
   } catch (err) {
     const errors = err.response.data.errors;
 
