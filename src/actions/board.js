@@ -358,9 +358,9 @@ export const getActivity = () => async (dispatch) => {
 };
 
 // Add member
-export const addMember = (userId) => async (dispatch) => {
+export const addMember = (email) => async (dispatch) => {
   try {
-    const res = await axios.put(`${url}/api/boards/addMember/${userId}`);
+    const res = await axios.put(`${url}/api/boards/addMember/${email}`);
 
     dispatch({
       type: ADD_MEMBER,

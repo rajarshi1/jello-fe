@@ -15,6 +15,7 @@ const Members = () => {
   const [inputValue, setInputValue] = useState('');
   const [users, setUsers] = useState([]);
   const boardMembers = useSelector((state) => state.board.board.members);
+  
   const searchOptions = users.filter((user) =>
     boardMembers.find((boardMember) => boardMember.user === user._id) ? false : true
   );
@@ -29,7 +30,7 @@ const Members = () => {
   };
 
   const onSubmit = async () => {
-    dispatch(addMember(user._id));
+    dispatch(addMember(user.email));
     setUser(null);
     setInputValue('');
     setInviting(false);
