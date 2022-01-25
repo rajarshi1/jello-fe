@@ -118,7 +118,7 @@ export const addBoard = (formData, history) => async (dispatch) => {
 
     dispatch(setAlert('Board Created', 'success'));
 
-    history.push(`/board/${res.data._id}`);
+    // history.push(`/board/${res.data._id}`);
   } catch (err) {
     console.log(err);
     dispatch({

@@ -29,7 +29,7 @@ const Register = () => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const loadStatus = useSelector((state) => state.auth.loading);
   const dispatch = useDispatch();
-  useSelector((state) => console.log(state));
+  
   // console.log(loadStatus);
   const classes = useStyles();
   const navigate = useNavigate();

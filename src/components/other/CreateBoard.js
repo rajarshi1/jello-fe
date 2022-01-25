@@ -16,6 +16,8 @@ const CreateBoard = ({ history }) => {
     dispatch(getBoards());
   }, []);
   
+  // console.log(history);
+
   const boards = useSelector((state) => state.board.boards);
   const boardsName = boards.map((item) => item.title);
   // console.log(boards, boardsName );
