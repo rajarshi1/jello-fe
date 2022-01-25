@@ -52,7 +52,7 @@ const Register = () => {
 
   const LoginWithEmail = async (values) => {
     // e.preventDefault();
-    console.log(values);
+    // console.log(values);
 
     if (values.password !== values.password2) {
       dispatch(setAlert('Passwords do not match', 'error'));
@@ -67,7 +67,7 @@ const Register = () => {
         values.email,
         values.password
       );
-      console.log(response, "response");
+      // console.log(response, "response");
       if (!response) {
         throw new Error("Unable to sign up user");
       }
