@@ -119,7 +119,7 @@ const Register = () => {
       errors.password2 = "Password and Confirm password didn't match";
     }
 
-    console.log(errors, "errors");
+    // console.log(errors, "errors");
     return errors;
   };
 
