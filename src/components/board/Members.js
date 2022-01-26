@@ -24,8 +24,10 @@ const Members = () => {
   const handleInputValue = async (newInputValue) => {
     setInputValue(newInputValue);
     if (newInputValue && newInputValue !== '') {
-      const search = (await axios.get(`/api/users/${newInputValue}`)).data.slice(0, 5);
-      setUsers(search && search.length > 0 ? search : []);
+      const search = (await axios.get(`https://jello-2.herokuapp.com/api/users/${newInputValue}`)).data.slice(0, 5);
+      if(Array.isArray(search)){
+        setUsers(search);
+      }
     }
   };
 

@@ -16,6 +16,10 @@ const CreateCardForm = ({ listId, setAdding }) => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    if(title.trim() == ""){
+      alert('Card name cannot be blank');
+      return;
+    }
     dispatch(addCard({ title, listId }));
     setTitle('');
   };

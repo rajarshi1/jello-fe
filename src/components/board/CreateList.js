@@ -16,6 +16,10 @@ const CreateList = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    if(title.trim() == ""){
+      alert('List name cannot be blank');
+      return;
+    }
     dispatch(addList({ title }));
     setTitle('');
   };

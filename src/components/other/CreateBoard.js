@@ -27,6 +27,9 @@ const CreateBoard = ({ history }) => {
     if(boardsName.includes(title)){
       alert('A board with that name already exists, please use a different name');
     }
+    else if(title.trim() == ""){
+      alert('Board name cannot be blank!')
+    }
     else{
       dispatch(addBoard({ title }, history));
       setOpen(false);
