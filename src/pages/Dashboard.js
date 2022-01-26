@@ -19,7 +19,7 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const boards = useSelector((state) => state.board.boards);
   const loading = useSelector((state) => state.board.dashboardLoading);
-  console.log(user);
+  
   
   
   // useEffect(() => {

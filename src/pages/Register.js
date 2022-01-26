@@ -119,7 +119,7 @@ const Register = () => {
       errors.password2 = "Password and Confirm password didn't match";
     }
 
-    // console.log(errors, "errors");
+   
     return errors;
   };
 
@@ -150,11 +150,11 @@ const Register = () => {
       .auth()
       .signInWithPopup(new firebase.auth.GoogleAuthProvider())
       .then((userCred) => {
-        console.log(
-          "hi",
-          userCred.additionalUserInfo.profile.email,
-          userCred.additionalUserInfo.profile.name
-        );
+        // console.log(
+        //   "hi",
+        //   userCred.additionalUserInfo.profile.email,
+        //   userCred.additionalUserInfo.profile.name
+        // );
 
         //add display name to user
         updateProfile(auth.currentUser, { displayName: userCred.additionalUserInfo.profile.name });
@@ -167,7 +167,7 @@ const Register = () => {
             password: "password",
           })
           .then(function (response) {
-            console.log("from axios", response);
+            // console.log("from axios", response);
           })
           .catch(function (error) {
             console.log(error);
