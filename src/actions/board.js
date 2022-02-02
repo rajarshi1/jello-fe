@@ -30,6 +30,7 @@ import {
 import setAuthToken from '../utils/setAuthToken';
 
 const url = 'https://jello-2.herokuapp.com'
+// const url = 'http://localhost:5000'
 
 const config = {
   headers: {
@@ -265,7 +266,6 @@ export const addCard = (formData) => async (dispatch) => {
 export const editCard = (cardId, formData) => async (dispatch) => {
   try {
     const res = await axios.patch(`${url}/api/cards/edit/${cardId}`, formData, config);
-
     dispatch({
       type: EDIT_CARD,
       payload: res.data,
@@ -399,7 +399,6 @@ export const moveList = (listId, formData) => async (dispatch) => {
 export const addCardMember = (formData) => async (dispatch) => {
   try {
     const { add, cardId, userId } = formData;
-
     const res = await axios.put(`${url}/api/cards/addMember/${add}/${cardId}/${userId}`);
 
     dispatch({

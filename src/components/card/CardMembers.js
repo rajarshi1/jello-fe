@@ -5,12 +5,12 @@ import { addCardMember } from '../../actions/board';
 import { Checkbox, FormGroup, FormControlLabel, FormControl } from '@material-ui/core';
 import useStyles from '../../utils/modalStyles';
 
-const CardMembers = ({ card }) => {
+const CardMembers = ({ card }) => {  
   const classes = useStyles();
   const boardMembers = useSelector((state) => state.board.board.members);
   const members = card.members.map((member) => member.user);
   const dispatch = useDispatch();
-
+  
   return (
     <div>
       <h3 className={classes.membersTitle}>Members</h3>
@@ -22,12 +22,13 @@ const CardMembers = ({ card }) => {
               control={
                 <Checkbox
                   checked={members.indexOf(member.user) !== -1}
+                  // checked={checked}
                   onChange={async (e) =>
                     dispatch(
                       addCardMember({
                         add: e.target.checked,
                         cardId: card._id,
-                        userId: e.target.name,
+                        userId: member.email,
                       })
                     )
                   }

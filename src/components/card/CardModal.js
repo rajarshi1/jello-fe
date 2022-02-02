@@ -7,6 +7,7 @@ import { Modal, TextField, Button } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import MoveCard from './MoveCard';
 import DeleteCard from './DeleteCard';
+import DueDate from './DueDate';
 import CardMembers from './CardMembers';
 import Checklist from '../checklist/CheckList';
 import useStyles from '../../utils/modalStyles';
@@ -91,9 +92,16 @@ const CardModal = ({ cardId, open, setOpen, card, list }) => {
             >
               No Label
             </Button>
+            <br/>
           </div>
         </div>
-        <Checklist card={card} />
+        {/* <Checklist card={card} /> */}
+        <DueDate 
+          card={card}
+          cardId={cardId}
+          title={title}
+          description={description}
+        />
         <div className={classes.modalSection}>
           <MoveCard cardId={cardId} setOpen={setOpen} thisList={list} />
           <div className={classes.modalBottomRight}>
