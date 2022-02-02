@@ -17,7 +17,7 @@ const DueDate = ({ cardId,card,title,description }) => {
         // e.preventDefault();
         const dateString = value.toDateString()
         dispatch(editCard(cardId, { title, description,dueDate:dateString }));
-        console.log(value,dateString);
+        
       };
 
     return (
