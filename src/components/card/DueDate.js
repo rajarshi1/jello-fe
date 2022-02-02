@@ -9,8 +9,6 @@ const DueDate = ({ cardId,card,title,description }) => {
     const classes = useStyles();
     const dispatch = useDispatch();
 
-    console.log(cardId,card.title, card.description,card);
-
     const [value, onChange] = useState(new Date());
 
     const handleSubmit = async () => {
