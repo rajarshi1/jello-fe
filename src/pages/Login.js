@@ -121,11 +121,6 @@ const Login = () => {
     }
   }, [user, isAuthenticated]);
 
-
-  // if (!isAuthenticated) {
-  //   return <p>Loading</p>;
-  // }
-
   return (
     <Container component='main' maxWidth='xs' className={classes.container}>
       <CssBaseline />

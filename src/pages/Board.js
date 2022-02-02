@@ -29,10 +29,6 @@ const Board = ({ match }) => {
     if (board?.title) document.title = board.title + ' | Jello';
   }, [board?.title]);
 
-//   if (!isAuthenticated) {
-//     return <Navigate to='/' />;
-//   }
-
   const onDragEnd = (result) => {
     const { source, destination, draggableId, type } = result;
     if (!destination) {

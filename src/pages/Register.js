@@ -30,30 +30,13 @@ const Register = () => {
   const loadStatus = useSelector((state) => state.auth.loading);
   const dispatch = useDispatch();
   
-  // console.log(loadStatus);
+
   const classes = useStyles();
   const navigate = useNavigate();
 
-  // if(loadStatus&&btnDisabled==false){
-  //   setBtnDisabled(false);
-  // }
-  // else{
-  //   setBtnDisabled(true);
-  // }
-
-  // const [formData, setFormData] = useState({
-  //   name: "",
-  //   email: "",
-  //   password: "",
-  //   password2: "",
-  // });
-
-  // const { name, email, password, password2 } = formData;
 
   const LoginWithEmail = async (values) => {
-    // e.preventDefault();
-    // console.log(values);
-
+   
     if (values.password !== values.password2) {
       dispatch(setAlert('Passwords do not match', 'error'));
       return;
@@ -67,7 +50,7 @@ const Register = () => {
         values.email,
         values.password
       );
-      // console.log(response, "response");
+
       if (!response) {
         throw new Error("Unable to sign up user");
       }
@@ -77,9 +60,9 @@ const Register = () => {
 
       authDispatch({ type: "LOGIN_SUCCESS", payload: response.user });
       authDispatch({ type: "USER_LOADED", payload: response.user });
-      // navigate("/dashboard");
+   
     } catch (error) {
-      // console.log(error.message);
+     
       if (error.message=='Firebase: Error (auth/email-already-in-use).'){
         alert('EMAIL ALREADY IN USE')
       }
@@ -150,11 +133,7 @@ const Register = () => {
       .auth()
       .signInWithPopup(new firebase.auth.GoogleAuthProvider())
       .then((userCred) => {
-        // console.log(
-        //   "hi",
-        //   userCred.additionalUserInfo.profile.email,
-        //   userCred.additionalUserInfo.profile.name
-        // );
+       
 
         //add display name to user
         updateProfile(auth.currentUser, { displayName: userCred.additionalUserInfo.profile.name });
@@ -167,7 +146,7 @@ const Register = () => {
             password: "password",
           })
           .then(function (response) {
-            // console.log("from axios", response);
+          
           })
           .catch(function (error) {
             console.log(error);
@@ -175,27 +154,6 @@ const Register = () => {
       });
   };
 
-  // const loginwithEmail = ()=>{
-  //   firebase.auth().createUserWithEmailAndPassword(email,password)
-  // }
-
-
-  
-
-
-
-  // const dispatch = useDispatch();
-
-  // const onSubmit = async (e) => {
-  //   e.preventDefault();
-  //   if (password !== password2) {
-  //     // dispatch(setAlert('Passwords do not match', 'error'));
-  //     console.log("passwords dont match");
-  //   } else {
-  //     // dispatch(register({ name, email, password }));
-  //     console.log("hi", name, email, password);
-  //   }
-  // };
 
   return (
     <Container component="main" maxWidth="xs" className={classes.container}>
@@ -207,7 +165,6 @@ const Register = () => {
         <Typography component="h2" variant="h5">
           Sign up
         </Typography>
-        {/* <form className="form" onSubmit={(e) => onSubmit(e)}> */}
         <form className="form"  onSubmit={registerFormik.handleSubmit} method="POST">
           <Grid container spacing={2}>
             <Grid item xs={12}>
@@ -218,9 +175,6 @@ const Register = () => {
                 required
                 fullWidth
                 label="Your Name"
-                // autoFocus
-                // value={name}
-                // onChange={(e) => onChange(e)}
                 {...registerFormik.getFieldProps("name")}
               />
               {registerFormik.touched.name && registerFormik.errors.name ? (
@@ -236,9 +190,6 @@ const Register = () => {
                 type="email"
                 fullWidth
                 label="Email Address"
-                // autoFocus
-                // value={email}
-                // onChange={(e) => onChange(e)}
                 {...registerFormik.getFieldProps("email")}
               />
               {registerFormik.touched.email && registerFormik.errors.email ? (
@@ -253,9 +204,6 @@ const Register = () => {
                 fullWidth
                 label="Password"
                 type="password"
-                // autoFocus
-                // value={password}
-                // onChange={(e) => onChange(e)}
                 {...registerFormik.getFieldProps("password")}
               />
                {registerFormik.touched.password &&
@@ -271,9 +219,6 @@ const Register = () => {
                 required
                 fullWidth
                 label="Confirm Password"
-                // autoFocus
-                // value={password2}
-                // onChange={(e) => onChange(e)}
                 {...registerFormik.getFieldProps("password2")}
               />
               {registerFormik.touched.password2 &&
