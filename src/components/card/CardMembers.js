@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { addCardMember } from '../../actions/board';
@@ -10,6 +10,19 @@ const CardMembers = ({ card }) => {
   const boardMembers = useSelector((state) => state.board.board.members);
   const members = card.members.map((member) => member.user);
   const dispatch = useDispatch();
+  const [assignedUsers, setAssignedUsers] = useState({})
+  console.log(members,boardMembers);
+
+  useEffect(()=>{
+    let tempAssignedUser={};
+    if(Array.isArray(boardMembers)){
+      boardMembers.forEach(boardMember=>{
+        tempAssignedUser[boardMember.user]=members && members.includes(boardMember.user)
+      })
+    }
+    setAssignedUsers(tempAssignedUser)
+    console.log(tempAssignedUser);
+  },[])
   
   return (
     <div>
@@ -21,9 +34,13 @@ const CardMembers = ({ card }) => {
               key={member.user}
               control={
                 <Checkbox
-                  checked={members.indexOf(member.user) !== -1}
-                  // checked={checked}
-                  onChange={async (e) =>
+                  // checked={members.indexOf(member.user) !== -1}
+                  checked={assignedUsers[member.user]===true}
+                  // checked={true}
+                  onChange={async (e) =>{
+                    let tempUser = {...assignedUsers}
+                    tempUser[member.user]=e.target.checked;
+                    console.log(e.target.checked);
                     dispatch(
                       addCardMember({
                         add: e.target.checked,
@@ -31,7 +48,9 @@ const CardMembers = ({ card }) => {
                         userId: member.email,
                       })
                     )
+                    setAssignedUsers(tempUser)
                   }
+                }
                   name={member.user}
                 />
               }
