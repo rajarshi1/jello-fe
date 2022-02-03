@@ -40,7 +40,7 @@ const CardMembers = ({ card }) => {
                   onChange={async (e) =>{
                     let tempUser = {...assignedUsers}
                     tempUser[member.user]=e.target.checked;
-                    console.log(e.target.checked);
+                  
                     dispatch(
                       addCardMember({
                         add: e.target.checked,
