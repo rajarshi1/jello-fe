@@ -11,7 +11,7 @@ const CardMembers = ({ card }) => {
   const members = card.members.map((member) => member.user);
   const dispatch = useDispatch();
   const [assignedUsers, setAssignedUsers] = useState({})
-  console.log(members,boardMembers);
+  // console.log(members,boardMembers);
 
   useEffect(()=>{
     let tempAssignedUser={};
@@ -21,7 +21,7 @@ const CardMembers = ({ card }) => {
       })
     }
     setAssignedUsers(tempAssignedUser)
-    console.log(tempAssignedUser);
+    // console.log(tempAssignedUser);
   },[])
   
   return (
