@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Button } from "@material-ui/core";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useNavigate } from "react-router-dom";
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const Landing = () => {
   const { user, authIsReady } = useAuthContext();
@@ -14,7 +15,10 @@ const Landing = () => {
   }, [user, authIsReady]);
 
   if (!authIsReady) {
-    return <p>Loading</p>;
+    return  <div style={{ alignItems: "center", display: "flex", justifyContent: "center", height: "100vh", width: "100vw" }}>
+                <CircularProgress />
+                <span style={{ justifyContent: "center", position: "fixed", top: "55%" }}>Loading...please wait</span>
+            </div>
   }
   return (
     <>

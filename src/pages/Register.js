@@ -19,6 +19,7 @@ import useStyles from "../utils/formStyles";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { projectAuth } from "../config/firebase-config";
 import { useFormik } from "formik";
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const auth = getAuth();
 
@@ -125,7 +126,10 @@ const Register = () => {
   }, [user, authIsReady]);
 
   if (!authIsReady) {
-    return <p>Loading</p>;
+    return  <div style={{ alignItems: "center", display: "flex", justifyContent: "center", height: "100vh", width: "100vw" }}>
+                  <CircularProgress />
+                 <span style={{ justifyContent: "center", position: "fixed", top: "55%" }}>Loading...please wait</span>
+            </div>
   }
 
   const loginwithGoogle = () => {
