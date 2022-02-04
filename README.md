@@ -8,4 +8,4 @@ Run - npm install
 
 Run - npm start
 
-Project live @ - https://jello-v01.netlify.app/
+Project live @ - https://jello-final.netlify.app/
