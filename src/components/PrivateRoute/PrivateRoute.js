@@ -12,7 +12,7 @@ function PrivateRoute({ component: Component, ...rest }) {
                  <span style={{ justifyContent: "center", position: "fixed", top: "55%" }}>Loading...please wait</span>
             </div>
   }
-  console.log(user);
+
   return user ? <Outlet /> : <Navigate to="/login/" />;
 }
 
