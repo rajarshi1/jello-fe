@@ -21,8 +21,8 @@
 
 Please Note:
 
-We recommend using this app in Google Chrome
-Use the app on Laptop/desktop only as of now.
+1. We recommend using this app in Google Chrome <br />
+2. Use the app on Laptop/desktop only as of now.
 
 Test Credentials:
 
@@ -31,7 +31,11 @@ password: pesto123
 
 
 # Installation
-Clone the repo
+ 1. Clone the repo 
+
+    git clone https://github.com/rajarshi1/jello-fe.git
+  
+ 
 git clonehttps:
 Set environment variables
 
