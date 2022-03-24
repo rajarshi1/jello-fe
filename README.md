@@ -8,7 +8,7 @@ Jello is a web-application that aims at allowing its user to manage and plan pro
 
 **Table of Contents**
 
-1. Demo
+1. [Demo](#demo)
 2. Installation
 3. Technology Stack
 4. Authors
