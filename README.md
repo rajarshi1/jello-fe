@@ -26,7 +26,7 @@ Use the app on Laptop/desktop only as of now.
 
 Test Credentials:
 
-email: pesto@pesto.tech
+email: pesto@pesto.tech <br />
 password: pesto123
 
 
@@ -56,7 +56,7 @@ Axios
 React
 
 # Authors
-Rajarshi Ghoshal
+Rajarshi Ghoshal <br />
 Parmod Garg
 
 # License
