@@ -14,7 +14,8 @@ Jello is a web-application that aims at allowing its user to manage and plan pro
 4. Authors
 5. License
 
-Demo
+#Demo
+
 Live Demo
 
 
