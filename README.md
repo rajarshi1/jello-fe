@@ -1,15 +1,18 @@
-![Logo](https://ik.imagekit.io/jbpnz7w0tjy/apple-touch-icon_d8vn5BWD9.png?ik-sdk-version=javascript-1.4.3&updatedAt=1648104698872)
 
 <p align="center">
   <img width="300" height="300" src="https://ik.imagekit.io/jbpnz7w0tjy/apple-touch-icon_d8vn5BWD9.png?ik-sdk-version=javascript-1.4.3&updatedAt=1648104698872">
 </p>
 
-Table of Contents
-Demo
-Installation
-Technology Stack
-Authors
-License
+Jello is a web-application that aims at allowing its user to manage and plan projects and tasks asynchronously. Jello supports personal Task Boards, allowing simple and organised task tracking. Jello has both a minimal and clean UI that promotes well organised tasking. The user can collaborate with multiple other users in a specific project and assign tasks and manage deadlines. 
+
+
+**Table of Contents**
+
+1. Demo
+2. Installation
+3. Technology Stack
+4. Authors
+5. License
 
 Demo
 Live Demo
