@@ -3,7 +3,7 @@
   <img width="300" height="300" src="https://ik.imagekit.io/jbpnz7w0tjy/apple-touch-icon_d8vn5BWD9.png?ik-sdk-version=javascript-1.4.3&updatedAt=1648104698872">
 </p>
 
-Jello is a web-application that aims at allowing its user to manage and plan projects and tasks asynchronously. Jello supports personal Task Boards, allowing simple and organised task tracking. Jello has both a minimal and clean UI that promotes well organised tasking. The user can collaborate with multiple other users in a specific project and assign tasks and manage deadlines. 
+**Jello** is a web-application that aims at allowing its user to manage and plan projects and tasks asynchronously. Jello supports personal Task Boards, allowing simple and organised task tracking. Jello has both a minimal and clean UI that promotes well organised tasking. The user can collaborate with multiple other users in a specific project and assign tasks and manage deadlines. 
 
 
 # Table of Contents
@@ -16,7 +16,7 @@ Jello is a web-application that aims at allowing its user to manage and plan pro
 
 # Demo
 
-Live Demo
+[Live Demo](https://jello-final.netlify.app/)
 
 
 Please Note:
@@ -26,8 +26,11 @@ Use the app on Laptop/desktop only as of now.
 
 Test Credentials:
 
+email: pesto@pesto.tech
+password: pesto123
 
-Installation
+
+# Installation
 Clone the repo
 git clonehttps:
 Set environment variables
