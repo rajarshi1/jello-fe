@@ -6,7 +6,7 @@
 Jello is a web-application that aims at allowing its user to manage and plan projects and tasks asynchronously. Jello supports personal Task Boards, allowing simple and organised task tracking. Jello has both a minimal and clean UI that promotes well organised tasking. The user can collaborate with multiple other users in a specific project and assign tasks and manage deadlines. 
 
 
-**Table of Contents**
+# Table of Contents
 
 1. [Demo](#demo)
 2. Installation
