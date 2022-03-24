@@ -16,7 +16,7 @@
 
 # Demo
 
-[Live Demo](https://jello-final.netlify.app/)
+<a href="https://jello-final.netlify.app/" target="_blank">Live Demo</a>
 
 
 Please Note:
