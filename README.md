@@ -33,7 +33,7 @@ password: pesto123
 # Installation
  1. Clone the repo 
 
-    git clone https://github.com/rajarshi1/jello-fe.git
+    ```git clone https://github.com/rajarshi1/jello-fe.git```
   
  
 git clonehttps:
