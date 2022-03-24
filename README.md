@@ -14,7 +14,7 @@ Jello is a web-application that aims at allowing its user to manage and plan pro
 4. Authors
 5. License
 
-#Demo
+# Demo
 
 Live Demo
 
@@ -45,16 +45,16 @@ Run Test cases
 
 npm test
 
-Technology Stack
+# Technology Stack
 We tried to use a completely modern tech stack while testing out some new technologies that we had never used before. This resulted in a fast, performant, and easily-extensible web app that should be fairly future-proof for the coming next several years. We used:
 
 
 Axios
 React
 
-Authors
+# Authors
 Rajarshi Ghoshal
 Parmod Garg
 
-License
+# License
 MIT
