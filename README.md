@@ -1,4 +1,4 @@
-![Logo](https://drive.google.com/file/d/1pGQW9sshPA-GCMEt0ornyaRQvSsT_dxx/view?usp=sharing)
+![Logo](https://drive.google.com/file/d/1pGQW9sshPA-GCMEt0ornyaRQvSsT_dxx/preview)
 
 Table of Contents
 Demo
