@@ -7,7 +7,7 @@ import {
   Container,
 } from "@material-ui/core";
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import { login } from '../actions/auth';
 import firebase from "firebase/compat/app";
@@ -25,6 +25,9 @@ import { useFormik } from "formik";
 const Login = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const params = new URLSearchParams(window.location.search);
+  const paramValue = params.get("pesto");
+
 
   const { user, authIsReady:isAuthenticated, authDispatch } = useAuthContext();
   // const { user, isAuthenticated } = useSelector((state) => state.auth);
@@ -34,8 +37,9 @@ const Login = () => {
     email: "",
     password: "",
   });
-  const { email, password } = formData;
 
+  const { email, password } = formData;
+  
  
 
   const onChange = (e) =>
@@ -106,13 +110,25 @@ const Login = () => {
 
   /** create loginFormik object with useFormik to handle login form submission */
   const loginFormik = useFormik({
-    initialValues: {
-      email: "",
-      password: "",
-    },
+    initialValues: setInitialValues(),
     onSubmit: onSubmit,
     validate: LoginValidate,
   });
+
+  function setInitialValues(){
+    if(paramValue==1){
+      return {
+        email: "pesto@pesto.tech",
+        password: "pesto123",
+      }
+    }
+    else{
+      return {
+        email: "",
+        password: "",
+      }
+    }
+  }
 
   useEffect(() => {
     if (!!isAuthenticated && user) {

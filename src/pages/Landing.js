@@ -29,6 +29,9 @@ const Landing = () => {
             <Button color="inherit" href="/login">
               Login
             </Button>
+            <Button color="inherit" href="/login?pesto=1">
+              Pesto Login
+            </Button>
             <Button variant="contained" href="/register">
               Sign Up
             </Button>
