@@ -34,30 +34,26 @@ password: pesto123
  1. Clone the repo 
 
     ```git clone https://github.com/rajarshi1/jello-fe.git```
-  
+
+ 2. Install NPM packages
+
+    `npm install`
+    
+ 3. Run
  
-git clonehttps:
-Set environment variables
+    `npm start`
 
-
-Install NPM packages
-
-cd jello && npm install
-Run
-
-npm start
-Open http://localhost:3000 to view it in the browser
-
-Run Test cases
-
-npm test
+ 4. Open http://localhost:3000 to view it in the browser
+ 
+ 5. Run Test cases
+    
+    `npm test`
 
 # Technology Stack
 We tried to use a completely modern tech stack while testing out some new technologies that we had never used before. This resulted in a fast, performant, and easily-extensible web app that should be fairly future-proof for the coming next several years. We used:
 
-
-Axios
 React
+Redux-thunk
 
 # Authors
 Rajarshi Ghoshal <br />
