@@ -9,10 +9,10 @@ Jello is a web-application that aims at allowing its user to manage and plan pro
 # Table of Contents
 
 1. [Demo](#demo)
-2. Installation
-3. Technology Stack
-4. Authors
-5. License
+2. [Installation](#installation)
+3. [Technology Stack](#technology-stack)
+4. Authors(#authors)
+5. License(#license)
 
 # Demo
 
