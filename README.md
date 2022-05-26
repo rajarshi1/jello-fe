@@ -12,7 +12,9 @@
 2. [Installation](#installation)
 3. [Technology Stack](#technology-stack)
 4. [Authors](#authors)
-5. [License](#license)
+5. [Live-link](#Live-link)
+6. [License](#license)
+
 
 # Demo
 
@@ -58,6 +60,9 @@ Redux-thunk
 # Authors
 Rajarshi Ghoshal <br />
 Parmod Garg
+
+# Live-link
+https://jello-final.netlify.app/
 
 # License
 MIT
